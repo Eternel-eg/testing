@@ -136,7 +136,8 @@
             z-index: 25; /* Pops visually */
             /* Slide UP out of envelope */
             transform: translateY(-60%) scale(1);
-            transition-delay: 0.4s; /* Wait for flap to start opening */
+            /* DELAY UPDATE: Wait 1.2s for flap to finish, then start sliding */
+            transition-delay: 1.2s; 
         }
 
         /* Page 2 (Full Screen Overlay) */
@@ -256,7 +257,7 @@
             // 1. Trigger Open Animation (Flap opens, Paper slides up)
             envelope.classList.add('open');
 
-            // 2. Wait for paper to slide out fully
+            // 2. Wait for flap (1.2s) + paper slide (1.5s) to complete
             setTimeout(() => {
                 // Fade/Zoom into Page 2
                 page2.classList.add('active');
@@ -266,7 +267,7 @@
                     page1.style.display = 'none';
                 }, 800);
 
-            }, 1500); // 1.5s delay to let the paper slide out animation finish
+            }, 2800); // Increased delay: 1200ms (flap) + 1500ms (slide) + 100ms buffer
         }
 
         function resetEnvelope() {
