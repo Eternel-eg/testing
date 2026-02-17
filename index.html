@@ -18,40 +18,46 @@
 
         /* 3D Stage */
         .stage {
-            perspective: 2500px;
+            /* Adjusted perspective for better mobile 3D feel */
+            perspective: 1200px;
             overflow: hidden;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 0;
         }
 
         /* Envelope Container */
         .envelope-wrapper {
             position: relative;
-            width: 90vw;
-            max-width: 800px;
+            /* FULL WIDTH FOR MOBILE */
+            width: 95vw; /* Almost edge-to-edge */
+            max-width: 600px; /* constrained on desktop */
             margin: 0 auto;
             
             /* GRID LAYOUT: Superimposes layers on Z-axis */
             display: grid;
             grid-template-areas: "stack";
-            align-items: end; /* Aligns content to bottom */
+            align-items: end; 
             
             cursor: pointer;
             transform-style: preserve-3d;
+            /* Transition for the slide-down effect */
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* -- The Flap Section -- */
         .flap-wrapper {
-            grid-area: stack; /* Occupies same space as body */
+            grid-area: stack; 
             width: 100%;
             position: relative;
-            z-index: 20; /* Flap is on TOP of body */
+            z-index: 20; 
             
             /* Hinge at bottom of the flap image */
             transform-origin: bottom center;
-            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            /* Slower, smoother easing for "heavy paper" feel */
+            transition: transform 1.4s cubic-bezier(0.25, 1, 0.5, 1);
             transform-style: preserve-3d;
         }
 
@@ -60,6 +66,8 @@
             display: block;
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
+            /* Light effect: darkens slightly as it flips up */
+            transition: filter 1.4s ease;
         }
 
         /* The Realistic "Inside" of the Flap */
@@ -73,15 +81,16 @@
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
             transform: rotateY(180deg);
-            background-image: linear-gradient(to bottom, rgba(0,0,0,0.05), transparent);
+            /* Gradient to simulate crease shadow */
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0.1) 100%);
         }
 
         /* -- The Body Section -- */
         .body-wrapper {
-            grid-area: stack; /* Occupies same space as flap */
+            grid-area: stack; 
             width: 100%;
             position: relative;
-            z-index: 10; /* Body is BELOW flap */
+            z-index: 10; 
         }
         
         .body-image {
@@ -91,16 +100,26 @@
         }
 
         /* Animation State */
+        .envelope-wrapper.open {
+            /* Slides the whole envelope DOWN so the open flap doesn't go off-screen */
+            transform: translateY(30%);
+        }
+
         .envelope-wrapper.open .flap-wrapper {
-            /* Flips UP and backwards */
+            /* Flips UP */
             transform: rotateX(180deg);
+        }
+        
+        .envelope-wrapper.open .flap-image {
+            /* Dim the front slightly as it faces away */
+            filter: brightness(0.9);
         }
 
         /* Page 2 Styles */
         #page-2 {
             opacity: 0;
             pointer-events: none;
-            transition: opacity 1s ease;
+            transition: opacity 1.5s ease;
             position: fixed;
             top: 0;
             left: 0;
@@ -115,7 +134,7 @@
         }
 
         #page-1 {
-            transition: opacity 0.8s ease;
+            transition: opacity 1s ease;
         }
         
         #page-1.fade-out {
@@ -123,7 +142,6 @@
             pointer-events: none;
         }
         
-        /* Error handling */
         .img-error {
             background-color: #e5e7eb;
             display: flex;
@@ -213,7 +231,7 @@
                     page1.style.display = 'none';
                 }, 500);
 
-            }, 1000); 
+            }, 1200); 
         }
 
         function resetEnvelope() {
