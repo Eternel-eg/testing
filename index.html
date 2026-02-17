@@ -18,8 +18,8 @@
 
         /* 3D Stage */
         .stage {
-            /* Adjusted perspective for better mobile 3D feel */
-            perspective: 1200px;
+            /* Deeper perspective for the paper sliding out effect */
+            perspective: 1500px;
             overflow: hidden;
             min-height: 100vh;
             display: flex;
@@ -31,19 +31,18 @@
         /* Envelope Container */
         .envelope-wrapper {
             position: relative;
-            /* FULL WIDTH FOR MOBILE */
-            width: 95vw; /* Almost edge-to-edge */
-            max-width: 600px; /* constrained on desktop */
+            /* INCREASED SIZE: 95vw for mobile, max-width bumped by 50% (600px -> 900px) */
+            width: 95vw; 
+            max-width: 900px; 
             margin: 0 auto;
             
-            /* GRID LAYOUT: Superimposes layers on Z-axis */
+            /* GRID LAYOUT */
             display: grid;
             grid-template-areas: "stack";
             align-items: end; 
             
             cursor: pointer;
             transform-style: preserve-3d;
-            /* Transition for the slide-down effect */
             transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -52,12 +51,11 @@
             grid-area: stack; 
             width: 100%;
             position: relative;
-            z-index: 20; 
+            z-index: 30; /* Highest Z-index */
             
-            /* Hinge at bottom of the flap image */
             transform-origin: bottom center;
-            /* Slower, smoother easing for "heavy paper" feel */
-            transition: transform 1.4s cubic-bezier(0.25, 1, 0.5, 1);
+            /* Smooth easing for "Opening" feel */
+            transition: transform 1.2s cubic-bezier(0.45, 0, 0.55, 1);
             transform-style: preserve-3d;
         }
 
@@ -66,11 +64,9 @@
             display: block;
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
-            /* Light effect: darkens slightly as it flips up */
-            transition: filter 1.4s ease;
+            transition: filter 1.2s ease;
         }
 
-        /* The Realistic "Inside" of the Flap */
         .flap-back {
             position: absolute;
             top: 0;
@@ -81,8 +77,28 @@
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
             transform: rotateY(180deg);
-            /* Gradient to simulate crease shadow */
             background-image: linear-gradient(to bottom, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0.1) 100%);
+        }
+
+        /* -- The Paper/Letter Inside -- */
+        .letter-card {
+            grid-area: stack;
+            z-index: 15; /* Behind flap (30) but... see logic below */
+            /* Actually needs to be behind Body (20) but we manipulate this via translateZ or logic */
+            
+            /* Initial State: Tucked inside */
+            width: 90%;
+            height: 85%; /* Slightly shorter than envelope */
+            justify-self: center;
+            background: #fff;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            
+            /* Transform */
+            transform-origin: center bottom;
+            transition: transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1); /* Bouncy exit */
+            transform: translateY(10%) scale(0.95); /* Hidden inside */
+            opacity: 0; /* Hidden initially to prevent peaking */
         }
 
         /* -- The Body Section -- */
@@ -90,7 +106,7 @@
             grid-area: stack; 
             width: 100%;
             position: relative;
-            z-index: 10; 
+            z-index: 20; /* On top of letter (15), below flap (30) */
         }
         
         .body-image {
@@ -99,38 +115,52 @@
             pointer-events: none;
         }
 
-        /* Animation State */
+        /* --- ANIMATION STATES --- */
+
+        /* 1. Open Envelope */
         .envelope-wrapper.open {
-            /* Slides the whole envelope DOWN so the open flap doesn't go off-screen */
-            transform: translateY(30%);
+            transform: translateY(20%); /* Move down slightly to make room for paper */
         }
 
         .envelope-wrapper.open .flap-wrapper {
-            /* Flips UP */
-            transform: rotateX(180deg);
+            transform: rotateX(180deg); /* Flip open */
         }
         
         .envelope-wrapper.open .flap-image {
-            /* Dim the front slightly as it faces away */
-            filter: brightness(0.9);
+            filter: brightness(0.85); /* Shadow effect */
         }
 
-        /* Page 2 Styles */
+        /* 2. Paper Slides Out */
+        .envelope-wrapper.open .letter-card {
+            opacity: 1;
+            z-index: 25; /* Pops visually */
+            /* Slide UP out of envelope */
+            transform: translateY(-60%) scale(1);
+            transition-delay: 0.4s; /* Wait for flap to start opening */
+        }
+
+        /* Page 2 (Full Screen Overlay) */
         #page-2 {
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 1.5s ease;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 50;
+            
+            opacity: 0;
+            pointer-events: none;
+            
+            /* Start zoomed out (matching the paper position roughly) */
+            transform: scale(0.8);
+            transform-origin: center center;
+            transition: all 0.8s ease-out;
         }
 
         #page-2.active {
             opacity: 1;
             pointer-events: auto;
+            transform: scale(1); /* Fill screen */
         }
 
         #page-1 {
@@ -170,8 +200,15 @@
                      alt="Envelope Flap" 
                      class="flap-image"
                      onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'img-error\'>Image 1 Failed</div>'">
-                
                 <div class="flap-back"></div>
+            </div>
+
+            <!-- THE PAPER (Letter Proxy) -->
+            <div class="letter-card flex items-center justify-center">
+                 <div class="text-center opacity-30">
+                     <div class="w-12 h-1 bg-stone-300 mb-2 mx-auto"></div>
+                     <div class="w-8 h-1 bg-stone-300 mx-auto"></div>
+                 </div>
             </div>
 
             <!-- BOTTOM BODY -->
@@ -186,9 +223,9 @@
 
     </div>
 
-    <!-- PAGE 2: The Content -->
+    <!-- PAGE 2: The Full Screen Content -->
     <div id="page-2" class="flex flex-col items-center justify-center bg-white p-6">
-        <div class="max-w-2xl w-full text-center border-4 border-double border-stone-200 p-8 md:p-16 rounded-lg shadow-2xl bg-stone-50">
+        <div class="max-w-3xl w-full text-center border-4 border-double border-stone-200 p-8 md:p-16 rounded-lg shadow-2xl bg-stone-50 h-full flex flex-col justify-center">
             
             <div class="mb-8 text-gold-500">
                 <svg class="w-20 h-20 mx-auto text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -196,15 +233,15 @@
                 </svg>
             </div>
 
-            <h2 class="font-playfair text-5xl text-stone-800 mb-6 font-bold">Welcome</h2>
+            <h2 class="font-playfair text-5xl md:text-7xl text-stone-800 mb-8 font-bold">Welcome</h2>
             
-            <p class="text-stone-600 text-lg leading-relaxed mb-10">
+            <p class="text-stone-600 text-lg md:text-2xl leading-relaxed mb-12 max-w-2xl mx-auto">
                 You have successfully opened the envelope. This is Page 2. 
                 <br><br>
                 Here you can place your invitation details, special message, or redirect links.
             </p>
 
-            <button onclick="resetEnvelope()" class="text-stone-400 hover:text-stone-600 text-base underline transition-colors">
+            <button onclick="resetEnvelope()" class="text-stone-400 hover:text-stone-600 text-base md:text-lg underline transition-colors">
                 Close and go back
             </button>
         </div>
@@ -216,22 +253,20 @@
             const page1 = document.getElementById('page-1');
             const page2 = document.getElementById('page-2');
 
-            // 1. Trigger Open Animation
+            // 1. Trigger Open Animation (Flap opens, Paper slides up)
             envelope.classList.add('open');
 
-            // 2. Wait for animation to finish, then transition pages
+            // 2. Wait for paper to slide out fully
             setTimeout(() => {
-                // Fade out Page 1
-                page1.classList.add('fade-out');
+                // Fade/Zoom into Page 2
+                page2.classList.add('active');
                 
-                // Show Page 2 after fade out
+                // Hide Page 1 after transition completes
                 setTimeout(() => {
-                    page2.classList.add('active');
-                    // Hide page 1 display entirely to prevent clicks
                     page1.style.display = 'none';
-                }, 500);
+                }, 800);
 
-            }, 1200); 
+            }, 1500); // 1.5s delay to let the paper slide out animation finish
         }
 
         function resetEnvelope() {
@@ -247,7 +282,6 @@
                 page1.style.display = 'flex';
                 // Force reflow
                 void page1.offsetWidth;
-                page1.classList.remove('fade-out');
                 envelope.classList.remove('open');
             }, 500);
         }
