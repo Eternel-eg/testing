@@ -101,6 +101,15 @@
             box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
             border-radius: 4px;
             
+            /* Content Layout */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; /* Align to top so header is visible */
+            padding: 2rem 1rem;
+            text-align: center;
+            overflow: hidden; /* Hide overflowing text before full reveal */
+
             /* Transform */
             transform-origin: center bottom;
             transition: transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1); /* Bouncy exit */
@@ -140,7 +149,7 @@
         /* 2. Paper Slides Out */
         .envelope-wrapper.open .letter-card {
             opacity: 1;
-            /* z-index REMOVED: Stays at 15, so it slides BEHIND the body (20) */
+            /* Stays at z-index: 15 to be behind the body */
             
             /* Slide UP out of envelope */
             transform: translateY(-60%) scale(1);
@@ -212,12 +221,21 @@
                 <div class="flap-back"></div>
             </div>
 
-            <!-- THE PAPER (Letter Proxy) -->
-            <div class="letter-card flex items-center justify-center">
-                 <div class="text-center opacity-30">
-                     <div class="w-12 h-1 bg-stone-300 mb-2 mx-auto"></div>
-                     <div class="w-8 h-1 bg-stone-300 mx-auto"></div>
-                 </div>
+            <!-- THE PAPER (Actual Content) -->
+            <div class="letter-card">
+                 <!-- Icon -->
+                 <div class="mb-4 text-gold-500">
+                    <svg class="w-12 h-12 md:w-16 md:h-16 mx-auto text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v9a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <!-- Title -->
+                <h2 class="font-playfair text-3xl md:text-5xl text-stone-800 mb-4 font-bold">Welcome</h2>
+                <!-- Text (Simplified for preview) -->
+                <p class="text-stone-600 text-sm md:text-lg leading-relaxed mb-4">
+                    You have successfully opened the envelope.<br>
+                    (Tap to view full invitation)
+                </p>
             </div>
 
             <!-- BOTTOM BODY -->
@@ -232,7 +250,7 @@
 
     </div>
 
-    <!-- PAGE 2: The Full Screen Content -->
+    <!-- PAGE 2: The Full Screen Content (Matches Card Content) -->
     <div id="page-2" class="flex flex-col items-center justify-center bg-white p-6">
         <div class="max-w-3xl w-full text-center border-4 border-double border-stone-200 p-8 md:p-16 rounded-lg shadow-2xl bg-stone-50 h-full flex flex-col justify-center">
             
