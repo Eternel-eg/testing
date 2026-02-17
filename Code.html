@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open the Envelope</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap');
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #f3f4f6;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 3D Stage */
+        .stage {
+            perspective: 2500px;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Envelope Container */
+        .envelope-wrapper {
+            position: relative;
+            width: 90vw;
+            max-width: 800px;
+            margin: 0 auto;
+            
+            /* GRID LAYOUT: Superimposes layers on Z-axis */
+            display: grid;
+            grid-template-areas: "stack";
+            align-items: end; /* Aligns content to bottom */
+            
+            cursor: pointer;
+            transform-style: preserve-3d;
+        }
+
+        /* -- The Flap Section -- */
+        .flap-wrapper {
+            grid-area: stack; /* Occupies same space as body */
+            width: 100%;
+            position: relative;
+            z-index: 20; /* Flap is on TOP of body */
+            
+            /* Hinge at bottom of the flap image */
+            transform-origin: bottom center;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .flap-image {
+            width: 100%;
+            display: block;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        /* The Realistic "Inside" of the Flap */
+        .flap-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fdfbf7;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform: rotateY(180deg);
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.05), transparent);
+        }
+
+        /* -- The Body Section -- */
+        .body-wrapper {
+            grid-area: stack; /* Occupies same space as flap */
+            width: 100%;
+            position: relative;
+            z-index: 10; /* Body is BELOW flap */
+        }
+        
+        .body-image {
+            width: 100%;
+            display: block;
+            pointer-events: none;
+        }
+
+        /* Animation State */
+        .envelope-wrapper.open .flap-wrapper {
+            /* Flips UP and backwards */
+            transform: rotateX(180deg);
+        }
+
+        /* Page 2 Styles */
+        #page-2 {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s ease;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 50;
+        }
+
+        #page-2.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #page-1 {
+            transition: opacity 0.8s ease;
+        }
+        
+        #page-1.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        /* Error handling */
+        .img-error {
+            background-color: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-size: 0.8rem;
+            min-height: 200px;
+            text-align: center;
+            padding: 20px;
+            border: 2px dashed #ccc;
+        }
+    </style>
+</head>
+<body class="bg-stone-100">
+
+    <!-- PAGE 1: The Envelope -->
+    <div id="page-1" class="stage">
+        
+        <!-- Envelope Component (Click Anywhere) -->
+        <div class="envelope-wrapper" id="envelope" onclick="openEnvelope()">
+            
+            <!-- TOP FLAP -->
+            <div class="flap-wrapper">
+                <img src="https://drive.google.com/thumbnail?id=1hwNZMskz7Zd2k3V9w1VvK_0tXTP2R68o&sz=w2000" 
+                     alt="Envelope Flap" 
+                     class="flap-image"
+                     onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'img-error\'>Image 1 Failed</div>'">
+                
+                <div class="flap-back"></div>
+            </div>
+
+            <!-- BOTTOM BODY -->
+            <div class="body-wrapper">
+                <img src="https://drive.google.com/thumbnail?id=1ZwJU_phvAhnLB2ZOxELWNyQI2wzkW-Rd&sz=w2000" 
+                     alt="Envelope Body" 
+                     class="body-image"
+                     onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'img-error\'>Image 2 Failed</div>'">
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- PAGE 2: The Content -->
+    <div id="page-2" class="flex flex-col items-center justify-center bg-white p-6">
+        <div class="max-w-2xl w-full text-center border-4 border-double border-stone-200 p-8 md:p-16 rounded-lg shadow-2xl bg-stone-50">
+            
+            <div class="mb-8 text-gold-500">
+                <svg class="w-20 h-20 mx-auto text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v9a2 2 0 002 2z"></path>
+                </svg>
+            </div>
+
+            <h2 class="font-playfair text-5xl text-stone-800 mb-6 font-bold">Welcome</h2>
+            
+            <p class="text-stone-600 text-lg leading-relaxed mb-10">
+                You have successfully opened the envelope. This is Page 2. 
+                <br><br>
+                Here you can place your invitation details, special message, or redirect links.
+            </p>
+
+            <button onclick="resetEnvelope()" class="text-stone-400 hover:text-stone-600 text-base underline transition-colors">
+                Close and go back
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function openEnvelope() {
+            const envelope = document.getElementById('envelope');
+            const page1 = document.getElementById('page-1');
+            const page2 = document.getElementById('page-2');
+
+            // 1. Trigger Open Animation
+            envelope.classList.add('open');
+
+            // 2. Wait for animation to finish, then transition pages
+            setTimeout(() => {
+                // Fade out Page 1
+                page1.classList.add('fade-out');
+                
+                // Show Page 2 after fade out
+                setTimeout(() => {
+                    page2.classList.add('active');
+                    // Hide page 1 display entirely to prevent clicks
+                    page1.style.display = 'none';
+                }, 500);
+
+            }, 1000); 
+        }
+
+        function resetEnvelope() {
+            const envelope = document.getElementById('envelope');
+            const page1 = document.getElementById('page-1');
+            const page2 = document.getElementById('page-2');
+
+            // Fade out Page 2
+            page2.classList.remove('active');
+
+            // Reset Page 1 visibility
+            setTimeout(() => {
+                page1.style.display = 'flex';
+                // Force reflow
+                void page1.offsetWidth;
+                page1.classList.remove('fade-out');
+                envelope.classList.remove('open');
+            }, 500);
+        }
+    </script>
+</body>
+</html>
