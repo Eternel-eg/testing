@@ -31,9 +31,9 @@
         /* Envelope Container */
         .envelope-wrapper {
             position: relative;
-            /* INCREASED SIZE: 95vw for mobile, max-width bumped by 50% (600px -> 900px) */
-            width: 95vw; 
-            max-width: 900px; 
+            /* MOBILE: FULL WIDTH (No Bezels) */
+            width: 100vw; 
+            max-width: 100%;
             margin: 0 auto;
             
             /* GRID LAYOUT */
@@ -44,6 +44,14 @@
             cursor: pointer;
             transform-style: preserve-3d;
             transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Desktop Constraints */
+        @media (min-width: 768px) {
+            .envelope-wrapper {
+                width: 90vw;
+                max-width: 1000px; /* Constrain on large screens */
+            }
         }
 
         /* -- The Flap Section -- */
@@ -83,8 +91,7 @@
         /* -- The Paper/Letter Inside -- */
         .letter-card {
             grid-area: stack;
-            z-index: 15; /* Behind flap (30) but... see logic below */
-            /* Actually needs to be behind Body (20) but we manipulate this via translateZ or logic */
+            z-index: 15; /* Behind flap (30) AND behind Body (20) */
             
             /* Initial State: Tucked inside */
             width: 90%;
@@ -98,7 +105,7 @@
             transform-origin: center bottom;
             transition: transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1); /* Bouncy exit */
             transform: translateY(10%) scale(0.95); /* Hidden inside */
-            opacity: 0; /* Hidden initially to prevent peaking */
+            opacity: 0; /* Hidden initially */
         }
 
         /* -- The Body Section -- */
@@ -133,7 +140,8 @@
         /* 2. Paper Slides Out */
         .envelope-wrapper.open .letter-card {
             opacity: 1;
-            z-index: 25; /* Pops visually */
+            /* z-index REMOVED: Stays at 15, so it slides BEHIND the body (20) */
+            
             /* Slide UP out of envelope */
             transform: translateY(-60%) scale(1);
             /* DELAY UPDATE: Wait 1.2s for flap to finish, then start sliding */
