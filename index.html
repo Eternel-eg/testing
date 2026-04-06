@@ -66,7 +66,7 @@
        ════════════════════════════════════════════════════════ */
     #loader {
       position: fixed; inset: 0; z-index: 9999;
-      background: #F5EFE6; /* ◄─ EDIT: LOADER BACKGROUND COLOR (beige) */
+      background: #3A3E28; /* ◄─ EDIT: LOADER BACKGROUND COLOR (beige) */
       display: flex; align-items: center; justify-content: center;
       flex-direction: column; gap: 2.2rem;
       transition: opacity 1.4s ease, visibility 1.4s ease;
@@ -397,7 +397,7 @@
     .memories-content { 
       position: relative; z-index: 2; text-align: center; 
       padding: 0 clamp(1rem, 4vw, 2rem); max-width: clamp(280px, 70vw, 560px); width: 90%; 
-      top: 8vh; /* ◄─ EDIT: MOVED 20% DOWN AS REQUESTED */
+      top: 10vh; /* ◄─ EDIT: MOVED 20% DOWN AS REQUESTED */
     }
 
     /* ── Scene 3 Separator Line with Diamond (✦) ── */
@@ -454,7 +454,7 @@
       letter-spacing: 2.5px; text-transform: uppercase; text-decoration: none; cursor: pointer; backdrop-filter: blur(10px);
       opacity: 0; transform: translateY(16px); transition: all 0.4s ease; box-shadow: 0 0 20px rgba(201,169,110,0.1); animation: btnBreath 4s ease-in-out infinite 2s;
     }
-    .mem-share-btn.visible { opacity:1; transform:translateY(0); }
+    .mem-share-btn.visible { opacity:1; transform:translateY(-20px); }
     .mem-share-btn.visible:hover { background: linear-gradient(135deg, rgba(201,169,110,0.3) 0%, rgba(201,169,110,0.1) 100%); border-color: var(--gold); letter-spacing: 3.8px; }
     @keyframes btnBreath { 0%,100%{box-shadow:0 0 14px rgba(201,169,110,0.1)} 50% {box-shadow:0 0 38px rgba(201,169,110,0.3), 0 0 75px rgba(201,169,110,0.1)} }
     
