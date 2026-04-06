@@ -1,893 +1,1095 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding Invitation - Layla & Omar</title>
-    
-    <!-- Favicon -->
-    <link rel="icon" href="https://drive.google.com/thumbnail?id=1XJYEISPB8ekCD8tekI99I2xvz5OnqaiO&sz=s800">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Cinzel:wght@400..900&family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Tajawal:wght@300;400;700&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --color-gold: #D4AF37; 
-            --color-navy: #1B263B;
-            --color-cream: #FDFBF7;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-        body {
-            font-family: 'Lato', sans-serif;
-            overflow: hidden; /* Prevent scrolling initially */
-            background-color: var(--color-cream);
-            color: var(--color-navy);
-        }
+  <!-- ════════════════════════════════════════════════════════
+       PAGE TITLE — shown in browser tab
+       ════════════════════════════════════════════════════════ -->
+  <title>Hana & Abdelrahman — Wedding Invitation</title>
 
-        /* --- PRELOADER --- */
-        #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--color-navy);
-            z-index: 100; /* Highest priority */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.8s ease-out, visibility 0.8s;
-        }
-        
-        .loader-spinner {
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(212, 175, 55, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--color-gold);
-            animation: spin 1s ease-in-out infinite;
-            margin-bottom: 15px;
-        }
+  <!-- ════════════════════════════════════════════════════════
+       FONTS — loaded from Google Fonts
+       ┌─ Cormorant Garamond : elegant serif for body / labels
+       ├─ Great Vibes        : romantic script for names/titles
+       ├─ Cairo              : clean Arabic sans-serif
+       └─ Amiri              : classical Arabic serif
+       ════════════════════════════════════════════════════════ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Great+Vibes&family=Cairo:wght@300;400;600&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+  <style>
+    /* ══════════════════════════════════════════════════════════
+       GLOBAL RESET & SMOOTH SCROLL
+       ══════════════════════════════════════════════════════════ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
-        /* --- Typography Classes --- */
-        .font-playfair { font-family: 'Playfair Display', serif; }
-        .font-cinzel { font-family: 'Cinzel', serif; }
-        .font-dancing-script { font-family: 'Dancing Script', cursive; }
-        .font-tajawal { font-family: 'Tajawal', sans-serif; }
+    /* ══════════════════════════════════════════════════════════
+       COLOR & FONT VARIABLES
+       ─ Change these to instantly retheme the whole site ──────
+         --gold          : main gold accent
+         --gold-light    : lighter gold for text on dark backgrounds
+         --gold-dark     : deeper gold for hover states
+         --serif         : English elegant serif font
+         --script        : handwritten / script font for names
+         --arabic        : Arabic sans-serif font
+         --arabic-serif  : Arabic classical serif font
+       ══════════════════════════════════════════════════════════ */
+    :root {
+      --gold:         #c9a96e;   /* ◄─ MAIN GOLD COLOR */
+      --gold-light:   #e8d5aa;   /* ◄─ LIGHT GOLD */
+      --gold-dark:    #a07840;   /* ◄─ DARK GOLD */
+      --ivory:        #faf6f0;
+      --serif:        'Cormorant Garamond', Georgia, serif;
+      --script:       'Great Vibes', cursive;
+      --arabic:       'Cairo', sans-serif;
+      --arabic-serif: 'Amiri', serif;
+    }
 
-        .text-gold { color: var(--color-gold); }
-        .bg-gold { background-color: var(--color-gold); }
-        .border-gold { border-color: var(--color-gold); }
+    body {
+      font-family: var(--serif);
+      background: #0d0905;
+      color: #e8d5aa;
+      overflow-x: hidden;
+    }
 
-        /* --- Page 1 (Entry) - Door Animation Styles --- */
-        #page1 {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 50; /* Above Page 2 */
-            perspective: 1500px; /* Essential for 3D door effect */
-            overflow: hidden;
-            pointer-events: auto;
-            transition: pointer-events 0s linear 1.5s; /* Disable clicks after animation */
-        }
-        
-        .show-page2 #page1 {
-            pointer-events: none;
-        }
 
-        /* Door Container Styles */
-        .door {
-            position: absolute;
-            top: 0;
-            width: 50.2%; /* Slight overlap to prevent gaps */
-            height: 100%;
-            overflow: hidden; 
-            transition: transform 2.5s cubic-bezier(0.4, 0.0, 0.2, 1);
-            transform-style: preserve-3d;
-            z-index: 10;
-            background-color: var(--color-navy); /* Fallback color if image fails */
-        }
+    /* ══════════════════════════════════════════════════════════
+       LOADER / SPLASH SCREEN
+       ─ Visible for LOADER_DURATION_MS milliseconds (see JS)
+       ══════════════════════════════════════════════════════════ */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: #0d0905; /* ◄─ LOADER BACKGROUND COLOR */
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 2.2rem;
+      transition: opacity 1.4s ease, visibility 1.4s ease;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
-        /* Inner Image Container for Dynamic Ratio (Cover) */
-        .door-inner {
-            position: absolute;
-            top: 0;
-            width: 200%; /* Relative to the door width (~100vw) */
-            height: 100%;
-            /* Added background color so it's not transparent while loading */
-            background-color: var(--color-navy); 
-            background-image: url('https://drive.google.com/thumbnail?id=1jUef-f5QYkemrHqtZcr0mOj3jt26EN8u&sz=w1920');
-            background-size: cover; 
-            background-position: center; 
-            pointer-events: none;
-        }
+    /* ── LOGO — replace src in HTML to change logo image ────
+       --logo-size controls size on screen */
+    :root { --logo-size: 220px; } /* ◄─ LOGO SIZE */
 
-        /* Left Door */
-        .door-left {
-            left: 0;
-            transform-origin: left center;
-        }
-        .door-left .door-inner {
-            left: 0;
-        }
+    .loader-logo {
+      width: var(--logo-size);
+      height: auto;
+      object-fit: contain;
+      opacity: 0;
+      animation:
+        logoFadeIn 1.2s ease forwards 0.4s,
+        logoShine  3.2s ease-in-out infinite 1.8s;
+      filter: drop-shadow(0 0 18px rgba(201,169,110,0.45))
+              drop-shadow(0 0 45px rgba(201,169,110,0.2));
+    }
+    /* Fade + rise in */
+    @keyframes logoFadeIn {
+      from { opacity:0; transform: scale(0.88) translateY(10px); }
+      to   { opacity:1; transform: scale(1)    translateY(0);    }
+    }
+    /* Gold pulse glow — makes the gold logo shimmer */
+    @keyframes logoShine {
+      0%,100% {
+        filter: drop-shadow(0 0 14px rgba(201,169,110,0.4))
+                drop-shadow(0 0 40px rgba(201,169,110,0.15))
+                brightness(1);
+      }
+      50% {
+        filter: drop-shadow(0 0 32px rgba(240,220,160,0.9))
+                drop-shadow(0 0 80px rgba(201,169,110,0.5))
+                drop-shadow(0 0 130px rgba(201,169,110,0.2))
+                brightness(1.22);
+      }
+    }
 
-        /* Right Door */
-        .door-right {
-            right: 0;
-            transform-origin: right center;
-        }
-        .door-right .door-inner {
-            left: -100%; 
-        }
+    /* Thin gold progress bar below logo */
+    .loader-progress {
+      width: 150px;
+      height: 1px;
+      background: rgba(201,169,110,0.12);
+      border-radius: 1px;
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 1s;
+    }
+    .loader-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      animation: fillBar 2s ease forwards 1.1s;
+    }
+    @keyframes fillBar { to { width: 100%; } }
+    @keyframes fadeUp  { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
 
-        /* Dark overlay on doors (moves with them) */
-        .door::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.2); 
-            z-index: 2; 
-        }
 
-        /* Open State */
-        .show-page2 .door-left {
-            transform: rotateY(-110deg);
-        }
-        .show-page2 .door-right {
-            transform: rotateY(110deg);
-        }
+    /* ══════════════════════════════════════════════════════════
+       FIXED UI CONTROLS — always visible above all scenes
+       ══════════════════════════════════════════════════════════ */
 
-        /* Overlay Content (Button) Fade Out */
-        #invitation-overlay {
-            transition: opacity 1s ease 0.2s;
-            opacity: 1;
-        }
-        .show-page2 #invitation-overlay {
-            opacity: 0;
-            pointer-events: none;
-        }
+    /* ── LANGUAGE BUTTON (top-right corner) ─────────────────
+       Change font-size, padding, or colors to restyle */
+    #lang-btn {
+      position: fixed;
+      top: 1.2rem;    /* ◄─ DISTANCE FROM TOP */
+      right: 1.2rem;  /* ◄─ DISTANCE FROM RIGHT */
+      z-index: 1000;
+      background: rgba(201,169,110,0.08);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(201,169,110,0.42);
+      color: var(--gold-light);  /* ◄─ BUTTON TEXT COLOR */
+      font-family: var(--serif);
+      font-size: 0.78rem;        /* ◄─ BUTTON FONT SIZE */
+      letter-spacing: 1.5px;
+      padding: 0.45rem 1.1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+    }
+    #lang-btn:hover {
+      background: rgba(201,169,110,0.22);
+      border-color: var(--gold);
+      letter-spacing: 2px;
+    }
 
-        /* --- Page 2 (Details) --- */
-        #page2 {
-            position: absolute;
-            inset: 0;
-            z-index: 20; /* Behind Page 1 */
-            background: radial-gradient(circle at 50% 50%, #FDFBF7 0%, #f4f1ea 100%);
-            overflow-y: auto;
-            overflow-x: hidden;
-            scroll-smooth: true;
-            /* CRITICAL FIX: Hide Page 2 initially so it never shows before Page 1 loads */
-            visibility: hidden; 
-            opacity: 0;
-            transition: opacity 1s ease-in;
-        }
-        
-        .show-page2 #page2 {
-            visibility: visible;
-            opacity: 1;
-        }
+    /* ── MUSIC BUTTON (top-left corner) ─────────────────────
+       Solid gold gradient circle with glow animation */
+    #music-btn {
+      position: fixed;
+      top: 1.2rem;   /* ◄─ DISTANCE FROM TOP */
+      left: 1.2rem;  /* ◄─ DISTANCE FROM LEFT */
+      z-index: 1000;
+      width: 42px; height: 42px; /* ◄─ BUTTON SIZE */
+      background: linear-gradient(135deg, #c9a96e 0%, #e8d5aa 50%, #a07840 100%); /* ◄─ GOLD GRADIENT */
+      border: 1px solid rgba(240,220,160,0.55);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;  /* ◄─ ICON SIZE */
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 0 14px rgba(201,169,110,0.4), 0 0 32px rgba(201,169,110,0.15),
+                  inset 0 1px 0 rgba(255,255,255,0.28);
+      animation: musicGlow 3.5s ease-in-out infinite;
+    }
+    @keyframes musicGlow {
+      0%,100%{ box-shadow: 0 0 10px rgba(201,169,110,0.35), 0 0 26px rgba(201,169,110,0.12); }
+      50%    { box-shadow: 0 0 22px rgba(240,220,160,0.7),  0 0 55px rgba(201,169,110,0.32); }
+    }
+    #music-btn:hover { transform: scale(1.1); }
+    /* Spinning ring added when music plays */
+    #music-btn.playing::after {
+      content: '';
+      position: absolute;
+      width: 54px; height: 54px;
+      border: 1px solid rgba(201,169,110,0.45);
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 2s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* --- Scroll Reveal Animations --- */
-        .reveal-on-scroll {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 1s ease-out, transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
 
-        .reveal-on-scroll.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    /* ══════════════════════════════════════════════════════════
+       SCENE 1 — HERO  (full-screen image + names + particles)
+       ══════════════════════════════════════════════════════════ */
+    #scene-hero {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      overflow: hidden;
+      transition: opacity 1.6s ease, transform 1.6s ease, filter 1.6s ease;
+    }
+    /* Exit: blur + zoom out when switching to scene 2 */
+    #scene-hero.exit {
+      opacity: 0;
+      transform: scale(1.07);
+      filter: blur(10px);
+      pointer-events: none;
+    }
 
-        .stagger-1 { transition-delay: 100ms; }
-        .stagger-2 { transition-delay: 200ms; }
-        .stagger-3 { transition-delay: 300ms; }
+    /* ── HERO BACKGROUND IMAGE ──────────────────────────────
+       Replace the URL to change the hero/car photo.
+       background-position adjusts which area of the image shows. */
+    .hero-bg {
+      position: absolute;
+      inset: -5%;
+      background-image: url('https://drive.google.com/thumbnail?id=1zbfUy2kBRirB16vbtz6vYJg0ISdmfEB7&sz=w1920'); /* ◄─ HERO IMAGE URL */
+      background-size: cover;
+      background-position: center bottom; /* ◄─ IMAGE CROP POSITION */
+      transform: scale(1.08);
+      animation: heroFloat 22s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+    /* Gentle vertical drift for depth */
+    @keyframes heroFloat {
+      0%   { transform: scale(1.08) translateY(0);    }
+      100% { transform: scale(1.08) translateY(-22px); }
+    }
 
-        /* --- Floating Particles Canvas --- */
-        #particles-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 60; /* Topmost, even above doors */
-            pointer-events: none;
-        }
-        .show-page2 #particles-canvas {
-            opacity: 0;
-            transition: opacity 1s;
-        }
+    /* Top + bottom darkening gradient on hero */
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg,
+        rgba(8,5,1,0.58) 0%,
+        rgba(8,5,1,0.08) 35%,
+        rgba(8,5,1,0.04) 55%,
+        rgba(8,5,1,0.52) 100%);
+    }
+    /* Edge vignette (darkens corners) */
+    .hero-vignette {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, transparent 38%, rgba(4,2,0,0.65) 100%);
+    }
 
-        /* --- Custom Button --- */
-        .btn-royal {
-            background: linear-gradient(135deg, #1B263B 0%, #304a6e 100%);
-            color: #D4AF37;
-            border: 1px solid #D4AF37;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 50; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-        .btn-royal::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.4), transparent);
-            transition: left 0.6s ease;
-            z-index: -1;
-        }
-        .btn-royal:hover::before {
-            left: 100%;
-        }
-        .btn-royal:hover {
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
-            transform: translateY(-3px) scale(1.05);
-            color: white;
-            border-color: white;
-        }
+    /* ── NAMES IN THE SKY ───────────────────────────────────
+       top: vertical position from top of screen.
+       Lower value = higher on screen. */
+    .hero-names {
+      position: absolute;
+      top: 12%;   /* ◄─ VERTICAL POSITION (% from top) */
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      white-space: nowrap;
+      opacity: 0;
+      animation: namesIn 3.5s ease forwards 1.8s;
+    }
+    @keyframes namesIn {
+      0%  { opacity:0; transform:translateX(-50%) translateY(14px); filter:blur(5px); }
+      100%{ opacity:0.62; transform:translateX(-50%) translateY(0); filter:blur(0); } /* ◄─ NAMES OPACITY (0–1) */
+    }
 
-        /* --- Gallery --- */
-        .gallery-item {
-            overflow: hidden;
-            border-radius: 4px;
-            position: relative;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-        .gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            z-index: 10;
-        }
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-        .gallery-item:hover img {
-            transform: scale(1.15);
-        }
+    /* ── NAMES TEXT ─────────────────────────────────────────
+       font-family: script font (Great Vibes)
+       clamp(min, preferred-vw, max) scales with screen width */
+    .hero-names h1 {
+      font-family: var(--script); /* ◄─ NAMES FONT */
+      font-size: clamp(2.8rem, 9vw, 7rem); /* ◄─ NAMES SIZE */
+      color: #fff;                /* ◄─ NAMES COLOR */
+      text-shadow:
+        0 0 55px rgba(201,169,110,0.65),
+        0 0 110px rgba(201,169,110,0.3),
+        0 3px 18px rgba(0,0,0,0.55);
+      letter-spacing: 2px;
+      line-height: 1;
+    }
+    /* Arabic version of names */
+    .hero-names h1 .arabic-names {
+      font-family: var(--arabic-serif); /* ◄─ ARABIC NAMES FONT */
+      font-size: clamp(1.7rem, 5vw, 3.6rem); /* ◄─ ARABIC NAMES SIZE */
+      font-style: italic;
+      display: block;
+      margin-top: 0.5rem;
+      opacity: 0.88;
+    }
 
-        /* Floating background decoration */
-        .floating-deco {
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: float 10s infinite ease-in-out;
-            z-index: 0;
-            pointer-events: none;
-        }
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(20px, -20px); }
-        }
+    /* ── SCROLL HINT (bottom of hero) ───────────────────────
+       Appears 3s in. Clicking it skips straight to scene 2. */
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 2.8rem; /* ◄─ DISTANCE FROM BOTTOM */
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      animation: namesIn 2s ease forwards 3.2s;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 0.7rem;
+      cursor: pointer;
+    }
+    .hero-scroll-hint span {
+      font-size: 0.68rem;        /* ◄─ HINT TEXT SIZE */
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: rgba(232,213,170,0.65); /* ◄─ HINT TEXT COLOR */
+    }
+    .scroll-line {
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(201,169,110,0.85));
+      animation: scrollAnim 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollAnim { 0%,100%{height:28px;opacity:.25} 50%{height:54px;opacity:1} }
 
-        /* Pulse for countdown */
-        @keyframes pulse-soft {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(0.95); opacity: 0.9; }
-        }
-        .animate-pulse-soft {
-            animation: pulse-soft 2s infinite ease-in-out;
-        }
-        
-        .eternel-copyright {
-            font-family: 'Cinzel', serif;
-            letter-spacing: 3px;
-            font-size: 10px;
-            margin-top: 15px;
-            display: block;
-            color: #D4AF37;
-            opacity: 0.8;
-        }
-    </style>
+    /* ── GOLD DUST PARTICLES canvas ─────────────────────────
+       Drawn by JavaScript — count set by PARTICLE_COUNT in JS */
+    #particles-canvas {
+      position: absolute; inset: 0;
+      pointer-events: none; z-index: 5;
+    }
+
+
+    /* ══════════════════════════════════════════════════════════
+       SCENE 2 — WEDDING DETAILS
+       ══════════════════════════════════════════════════════════ */
+    #scene-details {
+      position: relative;
+      min-height: 100vh;
+      opacity: 0;
+      transition: opacity 1.6s ease 0.2s;
+      display: flex; flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 0vh;   /* ◄─ VERTICAL OFFSET — increase to push text down */
+      overflow: hidden;
+    }
+    #scene-details.visible { opacity: 1; }
+
+    /* ── SCENE 2 BACKGROUND IMAGE ───────────────────────────
+       Replace URL to change the background photo */
+    .details-bg {
+      position: absolute; inset: -4%;
+      background-image: url('https://drive.google.com/thumbnail?id=1AL9OucinIG6OJLFzPAAGpldOEbn3t7B_&sz=w1920'); /* ◄─ SCENE 2 IMAGE */
+      background-size: cover;
+      background-position: center;
+    }
+    .details-overlay { display: none; } /* No overlay — raw image shows */
+
+    /* ── DETAILS CARD (fully transparent) ───────────────────
+       No background, no border — text floats on the image.
+       Adjust padding to control spacing around text block. */
+    .details-card {
+      position: relative; z-index: 2;
+      text-align: center;
+      padding: 2rem 2.5rem; /* ◄─ TOP/BOTTOM LEFT/RIGHT PADDING */
+      max-width: 640px;     /* ◄─ MAX CARD WIDTH */
+      width: 90%;
+      background: transparent; border: none; box-shadow: none;
+    }
+    .details-card::before, .details-card::after { display: none; }
+
+    /* ── STAGGER ANIMATION — each line fades in separately ──
+       Delay between lines set in animateDetailLines() in JS */
+    .detail-line {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.85s ease, transform 0.85s ease;
+    }
+    .detail-line.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── ORNAMENT row (✦ ✦ ✦) ──────────────────────────── */
+    .detail-ornament {
+      font-family: var(--script);
+      font-size: 1.3rem;    /* ◄─ ORNAMENT SIZE */
+      color: var(--gold);   /* ◄─ ORNAMENT COLOR */
+      opacity: 0.6; letter-spacing: 5px; margin-bottom: 0.5rem;
+    }
+
+    /* ── COUPLE NAMES (large script text) ──────────────────
+       clamp(min, vw-based, max) — scales with screen */
+    .detail-title {
+      font-family: var(--script);               /* ◄─ NAMES FONT */
+      font-size: clamp(2.2rem, 6.5vw, 3.8rem); /* ◄─ NAMES SIZE */
+      color: var(--gold-light);                 /* ◄─ NAMES COLOR */
+      line-height: 1.1;
+      text-shadow: 0 0 35px rgba(201,169,110,0.35);
+    }
+    .detail-ampersand {
+      font-family: var(--script);
+      font-size: clamp(1.4rem, 3.5vw, 2.2rem); /* ◄─ AMPERSAND SIZE */
+      color: rgba(201,169,110,0.5);             /* ◄─ AMPERSAND COLOR */
+      display: block; margin: -0.2rem 0;
+    }
+
+    /* ── GOLD DIVIDER LINE ─────────────────────────────── */
+    .detail-divider {
+      width: 55px; height: 1px; /* ◄─ DIVIDER WIDTH */
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin: 1.3rem auto;
+    }
+
+    /* ── SMALL LABEL (DATE, LOCATION, etc.) ─────────────── */
+    .detail-label {
+      font-size: 0.63rem;    /* ◄─ LABEL FONT SIZE */
+      letter-spacing: 3.5px; /* ◄─ LABEL SPACING */
+      text-transform: uppercase;
+      color: var(--gold);    /* ◄─ LABEL COLOR */
+      opacity: 0.62; margin-bottom: 0.25rem;
+    }
+
+    /* ── MAIN DETAIL VALUE (date text, ceremony text) ────── */
+    .detail-value {
+      font-size: clamp(0.95rem, 2.4vw, 1.2rem); /* ◄─ VALUE SIZE */
+      color: rgba(232,213,170,0.92);             /* ◄─ VALUE COLOR */
+      font-weight: 300; letter-spacing: 0.5px; margin-bottom: 0.9rem;
+    }
+
+    /* ── TIME TEXT (16:00 — 22:00) ───────────────────────── */
+    .detail-time {
+      font-size: 0.88rem;             /* ◄─ TIME SIZE */
+      color: rgba(232,213,170,0.72);  /* ◄─ TIME COLOR */
+      letter-spacing: 1.5px; margin-top: 0.15rem;
+    }
+
+    /* ── VENUE NAME (italic) ─────────────────────────────── */
+    .detail-venue {
+      font-size: clamp(1rem, 2.7vw, 1.35rem); /* ◄─ VENUE SIZE */
+      color: var(--gold-light);               /* ◄─ VENUE COLOR */
+      font-style: italic; margin-bottom: 0.2rem;
+    }
+
+    /* ── GOOGLE MAPS LINK ────────────────────────────────── */
+    .detail-map-link {
+      display: inline-block; margin-top: 0.35rem;
+      font-size: 0.68rem;   /* ◄─ MAP LINK SIZE */
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--gold);   /* ◄─ MAP LINK COLOR */
+      text-decoration: none;
+      border-bottom: 1px solid rgba(201,169,110,0.3);
+      padding-bottom: 1px;
+      transition: all 0.3s ease; opacity: 0.82;
+    }
+    .detail-map-link:hover { opacity:1; border-color:var(--gold); letter-spacing:3.5px; }
+
+    /* Ambient glow ring (decorative, centered behind card) */
+    .glow-ring {
+      position: absolute; width: 480px; height: 480px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(201,169,110,0.06) 0%, transparent 70%);
+      top: 25%; left: 50%; transform: translate(-50%,-50%);
+      pointer-events: none;
+      animation: glowPulse 6s ease-in-out infinite;
+    }
+    @keyframes glowPulse {
+      0%,100%{ opacity:.4; transform:translate(-50%,-50%) scale(1);   }
+      50%    { opacity:1;  transform:translate(-50%,-50%) scale(1.18); }
+    }
+
+
+    /* ══════════════════════════════════════════════════════════
+       SCENE 3 — MEMORIES / PHOTO SHARING
+       ══════════════════════════════════════════════════════════ */
+    #scene-memories {
+      position: relative;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center;
+      justify-content: flex-end; /* content sits near bottom */
+      padding-bottom: 7vh; /* ◄─ BOTTOM PADDING */
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 1.6s ease;
+    }
+    #scene-memories.visible { opacity: 1; }
+
+    /* ── SCENE 3 BACKGROUND IMAGE ───────────────────────────
+       Replace URL to change the memories section background */
+    .memories-bg {
+      position: absolute; inset: -4%;
+      background-image: url('https://drive.google.com/thumbnail?id=1PC0V53oDwf1OvVL1Ckv0FHsTq5qMmEgT&sz=w1920'); /* ◄─ SCENE 3 IMAGE */
+      background-size: cover;
+      background-position: center;
+      animation: memFloat 26s ease-in-out infinite alternate;
+    }
+    @keyframes memFloat {
+      0%  { transform: scale(1.06) translateY(0);    }
+      100%{ transform: scale(1.06) translateY(-18px); }
+    }
+
+    /* Bottom gradient darkens image for text legibility */
+    .memories-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg,
+        rgba(4,2,0,0.0)  0%,
+        rgba(4,2,0,0.0)  40%,
+        rgba(4,2,0,0.55) 72%,
+        rgba(4,2,0,0.82) 100%);
+    }
+
+    /* ── FLOATING SPARKLES (CSS-only decorative dots) ───────
+       8 gold dots drift upward at different speeds / positions */
+    .mem-sparkle {
+      position: absolute;
+      width: 4px; height: 4px;
+      background: var(--gold);
+      border-radius: 50%;
+      opacity: 0;
+      pointer-events: none;
+      box-shadow: 0 0 6px rgba(201,169,110,0.8);
+    }
+    .mem-sparkle:nth-child(1) { top:12%; left:7%;  animation: sparkle 7s infinite 0s;   }
+    .mem-sparkle:nth-child(2) { top:22%; left:87%; animation: sparkle 8s infinite 1s;   width:3px;height:3px; }
+    .mem-sparkle:nth-child(3) { top:38%; left:4%;  animation: sparkle 6s infinite 2s;   }
+    .mem-sparkle:nth-child(4) { top:52%; left:93%; animation: sparkle 9s infinite 0.5s; width:5px;height:5px; }
+    .mem-sparkle:nth-child(5) { top:66%; left:11%; animation: sparkle 7s infinite 3s;   }
+    .mem-sparkle:nth-child(6) { top:76%; left:82%; animation: sparkle 8s infinite 1.5s; width:3px;height:3px; }
+    .mem-sparkle:nth-child(7) { top:84%; left:32%; animation: sparkle 6s infinite 2.5s; }
+    .mem-sparkle:nth-child(8) { top:16%; left:56%; animation: sparkle 9s infinite 4s;   }
+    @keyframes sparkle {
+      0%  { opacity:0;   transform:translateY(0)    scale(0.5); }
+      25% { opacity:0.7; }
+      50% { opacity:0.3; transform:translateY(-32px) scale(1.2); }
+      75% { opacity:0.6; }
+      100%{ opacity:0;   transform:translateY(-65px) scale(0.4); }
+    }
+
+    /* ── SCENE 3 CONTENT BLOCK ──────────────────────────────
+       max-width controls text column width */
+    .memories-content {
+      position: relative; z-index: 2;
+      text-align: center;
+      padding: 0 2rem;
+      max-width: 560px; /* ◄─ MAX CONTENT WIDTH */
+      width: 90%;
+    }
+
+    /* Expanding ornament line above title */
+    .mem-ornament-line {
+      display: flex; align-items: center; justify-content: center;
+      gap: 1rem; margin-bottom: 1.3rem;
+      opacity: 0; transform: scaleX(0);
+      transition: opacity 1s ease, transform 1.2s cubic-bezier(.34,1.56,.64,1);
+    }
+    .mem-ornament-line.visible { opacity:1; transform:scaleX(1); }
+    .mem-ornament-line::before,
+    .mem-ornament-line::after {
+      content:''; flex:1; height:1px;
+      background:linear-gradient(to right, transparent, rgba(201,169,110,0.5));
+    }
+    .mem-ornament-line::after {
+      background:linear-gradient(to left, transparent, rgba(201,169,110,0.5));
+    }
+    .mem-ornament-line span {
+      font-family: var(--script);
+      font-size: 1.1rem; /* ◄─ ORNAMENT ICON SIZE */
+      color: var(--gold); opacity: 0.75;
+    }
+
+    /* ── SCENE 3 TITLE ──────────────────────────────────────
+       Large script heading, text editable in JS translations */
+    .memories-title {
+      font-family: var(--script);              /* ◄─ TITLE FONT */
+      font-size: clamp(2rem, 6.5vw, 3.5rem);  /* ◄─ TITLE SIZE */
+      color: var(--gold-light);               /* ◄─ TITLE COLOR */
+      text-shadow: 0 0 40px rgba(201,169,110,0.4), 0 2px 15px rgba(0,0,0,0.5);
+      line-height: 1.15; margin-bottom: 0.7rem;
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 1s ease 0.2s, transform 1s ease 0.2s;
+    }
+    .memories-title.visible { opacity:1; transform:translateY(0); }
+
+    /* ── SCENE 3 SUBTITLE ───────────────────────────────────
+       Smaller descriptive paragraph */
+    .memories-subtitle {
+      font-size: clamp(0.82rem, 2vw, 0.96rem); /* ◄─ SUBTITLE SIZE */
+      color: rgba(232,213,170,0.72);            /* ◄─ SUBTITLE COLOR */
+      letter-spacing: 1.2px; line-height: 1.8;
+      margin-bottom: 2.2rem; font-weight: 300;
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 1s ease 0.4s, transform 1s ease 0.4s;
+    }
+    .memories-subtitle.visible { opacity:1; transform:translateY(0); }
+
+    /* ── SHARE / UPLOAD BUTTON ──────────────────────────────
+       href in HTML: replace YOUR_GOOGLE_DRIVE_LINK
+       Breathing glow + hover expansion */
+    .mem-share-btn {
+      display: inline-flex; align-items: center;
+      gap: 0.65rem;
+      padding: 0.92rem 2.7rem; /* ◄─ BUTTON PADDING */
+      background: linear-gradient(135deg,
+        rgba(201,169,110,0.16) 0%,
+        rgba(232,213,170,0.06) 100%);
+      border: 1px solid rgba(201,169,110,0.52); /* ◄─ BUTTON BORDER */
+      border-radius: 40px;
+      font-family: var(--serif);  /* ◄─ BUTTON FONT */
+      font-size: 0.75rem;         /* ◄─ BUTTON TEXT SIZE */
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--gold-light);   /* ◄─ BUTTON TEXT COLOR */
+      text-decoration: none;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 1s ease 0.6s, transform 1s ease 0.6s,
+                  background 0.4s, border-color 0.4s, letter-spacing 0.4s, box-shadow 0.4s;
+      box-shadow: 0 0 20px rgba(201,169,110,0.1);
+      animation: btnBreath 4s ease-in-out infinite 2s;
+    }
+    .mem-share-btn.visible { opacity:1; transform:translateY(0); }
+    .mem-share-btn.visible:hover {
+      background: linear-gradient(135deg, rgba(201,169,110,0.32) 0%, rgba(201,169,110,0.12) 100%);
+      border-color: var(--gold);
+      letter-spacing: 3.8px;
+      box-shadow: 0 0 42px rgba(201,169,110,0.38), 0 0 85px rgba(201,169,110,0.12);
+    }
+    @keyframes btnBreath {
+      0%,100%{ box-shadow: 0 0 14px rgba(201,169,110,0.1); }
+      50%    { box-shadow: 0 0 38px rgba(201,169,110,0.32), 0 0 75px rgba(201,169,110,0.1); }
+    }
+    .btn-icon { font-size: 1rem; opacity: 0.88; } /* ◄─ BUTTON ICON SIZE */
+
+
+    /* ══════════════════════════════════════════════════════════
+       ARABIC / RTL OVERRIDES
+       Applied when user switches to Arabic via lang button
+       ══════════════════════════════════════════════════════════ */
+    body.ar .hero-names h1      { font-family: var(--arabic-serif); font-size: clamp(2rem, 7vw, 5rem); }
+    body.ar .detail-label       { font-family: var(--arabic); font-size: 0.72rem; letter-spacing: 0.5px; }
+    body.ar .detail-value       { font-family: var(--arabic); }
+    body.ar .detail-title       { font-family: var(--arabic-serif); }
+    body.ar .detail-venue       { font-family: var(--arabic); }
+    body.ar .detail-time        { font-family: var(--arabic); letter-spacing: 0; }
+    body.ar .detail-map-link    { font-family: var(--arabic); letter-spacing: 0.5px; }
+    body.ar .details-card       { direction: rtl; text-align: center; }
+    body.ar .memories-title     { font-family: var(--arabic-serif); }
+    body.ar .memories-subtitle  { font-family: var(--arabic); letter-spacing: 0.5px; }
+    body.ar .mem-share-btn      { font-family: var(--arabic); letter-spacing: 0.8px; }
+
+    /* ══════════════════════════════════════════════════════════
+       MOBILE RESPONSIVE
+       ══════════════════════════════════════════════════════════ */
+    @media (max-width: 480px) {
+      :root { --logo-size: 160px; }        /* smaller logo on phones */
+      .details-card    { padding: 1.5rem 1.2rem; }
+      .memories-content{ padding: 0 1rem; }
+      #scene-details   { padding-top: 0; }
+    }
+  </style>
 </head>
-<body class="bg-[#FDFBF7]">
+<body>
 
-    <!-- PRELOADER -->
-    <div id="preloader">
-        <div class="loader-spinner"></div>
-        <div class="font-cinzel text-gold text-xs tracking-widest uppercase">Loading Invitation...</div>
+<!-- ════════════════════════════════════════════════════════
+     LOADER — fullscreen splash while page loads
+     ◄─ To change the logo: replace the src URL below
+     ════════════════════════════════════════════════════════ -->
+<div id="loader">
+  <img
+    class="loader-logo"
+    src="https://drive.google.com/thumbnail?id=1Nms7bT7cC5HO-vf3BwQvPlAC8acdN-0A&sz=w1920"
+    alt="Hana & Abdelrahman Logo"
+  />
+  <div class="loader-progress">
+    <div class="loader-progress-bar"></div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════
+     FIXED CONTROLS — sit above all scenes
+     ════════════════════════════════════════════════════════ -->
+
+<!-- Language toggle — top right -->
+<button id="lang-btn" onclick="toggleLang()">🇸🇦 العربية</button>
+
+<!-- Music toggle — top left (gold circle) -->
+<button id="music-btn" title="Toggle music" onclick="toggleMusic()">🎵</button>
+
+
+<!-- ════════════════════════════════════════════════════════
+     SCENE 1 — HERO
+     Full-screen car photo + names + gold particle dust
+     ════════════════════════════════════════════════════════ -->
+<div id="scene-hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-vignette"></div>
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- Names shown in the sky.
+       Edit text in the JS translations object below. -->
+  <div class="hero-names" id="heroNames">
+    <h1 id="heroNamesText">Hana &amp; Abdelrahman</h1>
+  </div>
+
+  <!-- Scroll / skip hint at the bottom -->
+  <div class="hero-scroll-hint" onclick="goToDetails()">
+    <div class="scroll-line"></div>
+    <span id="scrollHintText">Scroll to discover</span>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════
+     SCENE 2 — WEDDING DETAILS
+     Text floats directly over background image (no overlay)
+     ════════════════════════════════════════════════════════ -->
+<div id="scene-details">
+  <div class="details-bg"></div>
+  <div class="details-overlay"></div>
+  <div class="glow-ring"></div>
+
+  <div class="details-card">
+
+    <!-- Decorative ornament row -->
+    <div class="detail-line" id="dl-ornament">
+      <div class="detail-ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
     </div>
 
-    <!-- Page 1: The Doors (Entry) -->
-    <div id="page1">
-        <!-- Two Doors mimicking the single background image -->
-        <div class="door door-left">
-            <div class="door-inner"></div>
-        </div>
-        <div class="door door-right">
-            <div class="door-inner"></div>
-        </div>
-        
-        <!-- Particle Canvas (Gold Dust) -->
-        <canvas id="particles-canvas"></canvas>
-
-        <!-- Top Controls (Language & Audio) -->
-        <div class="absolute top-6 right-6 z-50 flex items-center gap-3">
-            <button id="lang-toggle-btn" class="bg-[#1B263B]/80 backdrop-blur border border-gold/50 text-gold text-xs font-cinzel tracking-widest py-1.5 px-4 rounded hover:bg-gold hover:text-[#1B263B] transition-colors duration-300">
-                العربية
-            </button>
-            <button id="audio-control" class="bg-[#1B263B]/80 backdrop-blur border border-gold/50 text-gold p-2 rounded-full hover:bg-gold hover:text-[#1B263B] transition-colors duration-300 group">
-                <svg id="speaker-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-                </svg>
-            </button>
-        </div>
-
-        <!-- Center Overlay - Button Only (Fades out when doors open) -->
-        <!-- Adjusted padding: pb-32 for mobile, pb-10 for desktop -->
-        <div id="invitation-overlay" class="absolute left-1/2 top-2/3 -translate-x-1/2 z-50 flex flex-col items-center text-center p-6">
-
-
-            <!-- No Text, Just Button -->
-            <button id="join-us-btn" class="btn-royal font-cinzel font-bold py-3 px-10 text-sm tracking-[0.2em] uppercase rounded-sm cursor-pointer transform hover:scale-105 transition-transform duration-300">
-                <span data-lang-key="enterButton">Enter</span>
-            </button>
-        </div>
+    <!-- Couple names -->
+    <div class="detail-line" id="dl-names">
+      <div class="detail-title" id="name1">Hana Amer</div>
+      <span class="detail-ampersand">&amp;</span>
+      <div class="detail-title" id="name2">Abdelrahman Barake</div>
     </div>
 
-    <!-- Page 2: The Details (Scrollable Content) -->
-    <div id="page2">
+    <!-- Divider -->
+    <div class="detail-divider detail-line" id="dl-div1"></div>
 
-        <!-- Floating Decor Background -->
-        <div class="floating-deco" style="top: 10%; left: -5%;"></div>
-        <div class="floating-deco" style="bottom: 10%; right: -5%; animation-delay: -5s;"></div>
-
-        <!-- Back Button -->
-        <button id="back-btn" class="fixed top-6 left-6 z-50 bg-white/90 backdrop-blur text-[#1B263B] py-2 px-4 rounded-sm shadow-md font-cinzel text-xs tracking-wider border border-[#1B263B]/10 hover:bg-[#1B263B] hover:text-white transition-all duration-300 hover:shadow-lg transform hover:-translate-x-1">
-            <span data-lang-key="backButton">← Back</span>
-        </button>
-
-        <div class="max-w-5xl mx-auto text-center px-4 py-20 relative z-10">
-
-            <!-- Header Section -->
-            <div class="reveal-on-scroll">
-                <p class="font-cinzel text-gold text-xs md:text-sm tracking-[0.3em] uppercase mb-4" data-lang-key="saveTheDate">Save The Date</p>
-                <h2 class="font-playfair text-5xl md:text-6xl text-[#1B263B] mb-6">October 25th, 2026</h2>
-                <div class="w-16 h-1 bg-gold mx-auto mb-10 rounded-full"></div>
-                <p class="font-playfair text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed mb-12" data-lang-key="detailsSubtitle">We look forward to sharing this joyous occasion with you.</p>
-            </div>
-
-            <!-- Countdown (High Priority) -->
-            <div id="countdown" class="flex flex-wrap justify-center gap-4 md:gap-6 mb-20 reveal-on-scroll stagger-1">
-                <!-- JS injected here -->
-            </div>
-
-            <!-- Photo Gallery -->
-            <div class="mb-20">
-                <h3 class="font-cinzel text-2xl text-[#1B263B] mb-8 tracking-widest uppercase reveal-on-scroll" data-lang-key="galleryTitle">Our Moments</h3>
-                
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 h-[500px] md:h-[400px]">
-                    <!-- Large featured image -->
-                    <div class="gallery-item col-span-2 row-span-2 md:col-span-2 md:row-span-2 group reveal-on-scroll stagger-1">
-                        <img src="https://drive.google.com/thumbnail?id=1bqspfFP_3vq45MbMNxwv69AmZLBGE9Ke&sz=s800" alt="Couple" loading="lazy">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#1B263B]/60 to-transparent opacity-100 group-hover:opacity-40 transition-opacity duration-500"></div>
-                        <div class="absolute bottom-4 left-4 text-white font-playfair italic text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-y-2 group-hover:translate-y-0">Just said yes!</div>
-                    </div>
-                    <!-- Smaller images -->
-                    <div class="gallery-item col-span-1 row-span-1 reveal-on-scroll stagger-2">
-                        <img src="https://drive.google.com/thumbnail?id=1-VemOKAkBZF70mB3OrzJjd4iPHVBmLMa&sz=s800" alt="Ring" loading="lazy">
-                    </div>
-                    <div class="gallery-item col-span-1 row-span-1 reveal-on-scroll stagger-3">
-                        <img src="https://drive.google.com/thumbnail?id=19WpWLEEqiHLm7vmp-K1A4iloPfxVyoe6&sz=s800" alt="Details" loading="lazy">
-                    </div>
-                    <div class="gallery-item col-span-1 row-span-1 reveal-on-scroll stagger-2">
-                        <img src="https://drive.google.com/thumbnail?id=1biU54pkuKPeC8l1cQk9mEmwFNJa6ZPTZ&sz=s800" alt="Venue" loading="lazy">
-                    </div>
-                    <div class="gallery-item col-span-1 row-span-1 reveal-on-scroll stagger-3">
-                        <img src="https://drive.google.com/thumbnail?id=1Z29CWSAkCVewxgfPl0dY19IvXXrtrzT7&sz=s800" alt="Hands" loading="lazy">
-                    </div>
-                </div>
-
-                <div class="mt-6 reveal-on-scroll">
-                    <!-- PUT YOUR GOOGLE DRIVE/ALBUM LINK BELOW inside the href="" -->
-                    <a href="https://drive.google.com/drive/u/1/folders/1hXOaAvBWG_tKfdmvJCgNv4lsxZTrcMrI" target="_blank" class="inline-block text-gold border-b border-gold/50 pb-1 hover:text-[#1B263B] hover:border-[#1B263B] transition-all duration-300 font-cinzel text-xs tracking-wider uppercase transform hover:scale-105" data-lang-key="viewFullGallery">View Full Album</a>
-                </div>
-            </div>
-
-            <!-- Events Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20 text-left rtl:text-right px-4">
-                <!-- Katb Ktab -->
-                <div class="bg-white p-8 shadow-xl border-t-4 border-gold reveal-on-scroll stagger-1 transform hover:-translate-y-2 hover:shadow-2xl transition-all duration-500 rounded-sm">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="text-3xl text-gold animate-bounce" style="animation-duration: 3s;">📖</div>
-                        <h3 class="font-playfair text-2xl font-bold text-[#1B263B]" data-lang-key="ktabTitle">Katb El-Kitab</h3>
-                    </div>
-                    <div class="space-y-3 text-gray-600 font-light text-base mb-8">
-                        <p class="flex items-center gap-2"><span class="font-bold text-[#1B263B]">🕒</span> 6:00 PM</p>
-                        <p class="flex items-start gap-2"><span class="font-bold text-[#1B263B]">📍</span> <span data-lang-key="ktabLocation">Mosque of Sariyat al-Jabal</span></p>
-                        <p class="text-xs text-gray-400 pl-7" data-lang-key="ktabAddress">Salah Salem St, El-Sayeda Zainab, Cairo</p>
-                    </div>
-                    <div class="flex gap-3">
-                        <a href="https://www.google.com/maps/place/Al+Fattah+Al+Alim+Mosque/@30.019764,31.5998259,17z/data=!3m1!4b1!4m6!3m5!1s0x14581f8a7e60c763:0x786b2a8cc27f10b5!8m2!3d30.019764!4d31.6024008!16s%2Fg%2F11j0v0w7r8?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="flex-1 text-center bg-[#1B263B] text-white py-2.5 rounded-sm text-xs uppercase tracking-wide hover:bg-gold transition-colors duration-300 shadow-md" data-lang-key="mapButton">Map</a>
-                        <a id="cal-ktab" href="#" target="_blank" class="flex-1 text-center border border-[#1B263B] text-[#1B263B] py-2.5 rounded-sm text-xs uppercase tracking-wide hover:bg-[#1B263B] hover:text-white transition-colors duration-300" data-lang-key="calendarButton">Calendar</a>
-                    </div>
-                </div>
-
-                <!-- Celebration -->
-                <div class="bg-white p-8 shadow-xl border-t-4 border-gold reveal-on-scroll stagger-2 transform hover:-translate-y-2 hover:shadow-2xl transition-all duration-500 rounded-sm">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="text-3xl text-gold animate-bounce" style="animation-duration: 3s; animation-delay: 1.5s;">🥂</div>
-                        <h3 class="font-playfair text-2xl font-bold text-[#1B263B]" data-lang-key="celebTitle">The Celebration</h3>
-                    </div>
-                    <div class="space-y-3 text-gray-600 font-light text-base mb-8">
-                        <p class="flex items-center gap-2"><span class="font-bold text-[#1B263B]">🕒</span> <span data-lang-key="celebTime">8:00 PM onwards</span></p>
-                        <p class="flex items-start gap-2"><span class="font-bold text-[#1B263B]">📍</span> <span data-lang-key="celebLocation">Aurora Lounge</span></p>
-                        <p class="text-xs text-gray-400 pl-7" data-lang-key="celebAddress">Ahmed Orabi Compound, Obour City</p>
-                    </div>
-                    <div class="flex gap-3">
-                        <a href="https://maps.app.goo.gl/xuNfErX5iLXQ2mEW8" target="_blank" class="flex-1 text-center bg-[#1B263B] text-white py-2.5 rounded-sm text-xs uppercase tracking-wide hover:bg-gold transition-colors duration-300 shadow-md" data-lang-key="mapButton">Map</a>
-                        <a id="cal-celeb" href="#" target="_blank" class="flex-1 text-center border border-[#1B263B] text-[#1B263B] py-2.5 rounded-sm text-xs uppercase tracking-wide hover:bg-[#1B263B] hover:text-white transition-colors duration-300" data-lang-key="calendarButton">Calendar</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- RSVP Section -->
-            <div class="bg-[#1B263B] text-white p-8 md:p-12 shadow-2xl reveal-on-scroll relative overflow-hidden rounded-sm group">
-                <!-- Animated Background Circle -->
-                <div class="absolute -top-10 -right-10 w-40 h-40 border border-white/5 rounded-full transition-transform duration-1000 group-hover:scale-150"></div>
-                <div class="absolute -bottom-10 -left-10 w-60 h-60 border border-white/5 rounded-full transition-transform duration-1000 group-hover:scale-110"></div>
-
-                <div class="relative z-10 max-w-xl mx-auto">
-                    <h3 class="font-cinzel text-3xl mb-2 text-gold" data-lang-key="rsvpTitle">RSVP</h3>
-                    <p class="font-playfair italic text-gray-400 mb-8" data-lang-key="rsvpSubtitle">Kindly respond by September 1st</p>
-
-                    <form id="rsvp-form" class="text-left rtl:text-right space-y-6">
-                        <div class="group/input">
-                            <label for="name" class="block text-gold text-xs tracking-widest uppercase mb-2 group-focus-within/input:text-white transition-colors" data-lang-key="rsvpName">Full Name</label>
-                            <input type="text" id="name" name="name" class="w-full bg-white/5 border border-white/20 text-white px-4 py-3 focus:outline-none focus:border-gold focus:bg-white/10 transition-all duration-300" required>
-                        </div>
-
-                        <div>
-                            <span class="block text-gold text-xs tracking-widest uppercase mb-4" data-lang-key="rsvpAttend">Attendance</span>
-                            <div class="space-y-3">
-                                <label class="flex items-center cursor-pointer group p-2 hover:bg-white/5 rounded transition-colors">
-                                    <input type="radio" name="attending" value="Both" class="h-4 w-4 text-gold border-white/20 focus:ring-gold bg-transparent" required>
-                                    <span class="ml-3 text-gray-300 group-hover:text-white transition-colors text-sm" data-lang-key="rsvpBoth">Both Ceremonies</span>
-                                </label>
-                                <label class="flex items-center cursor-pointer group p-2 hover:bg-white/5 rounded transition-colors">
-                                    <input type="radio" name="attending" value="Katb El-Kitab only" class="h-4 w-4 text-gold border-white/20 focus:ring-gold bg-transparent">
-                                    <span class="ml-3 text-gray-300 group-hover:text-white transition-colors text-sm" data-lang-key="rsvpKtabOnly">Katb El-Kitab Only</span>
-                                </label>
-                                <label class="flex items-center cursor-pointer group p-2 hover:bg-white/5 rounded transition-colors">
-                                    <input type="radio" name="attending" value="The Celebration only" class="h-4 w-4 text-gold border-white/20 focus:ring-gold bg-transparent">
-                                    <span class="ml-3 text-gray-300 group-hover:text-white transition-colors text-sm" data-lang-key="rsvpCelebOnly">Celebration Only</span>
-                                </label>
-                                <label class="flex items-center cursor-pointer group p-2 hover:bg-white/5 rounded transition-colors">
-                                    <input type="radio" name="attending" value="No" class="h-4 w-4 text-gold border-white/20 focus:ring-gold bg-transparent">
-                                    <span class="ml-3 text-gray-300 group-hover:text-white transition-colors text-sm" data-lang-key="rsvpNo">Regretfully Decline</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div id="guests-section" class="hidden transition-all duration-500 ease-in-out opacity-0 transform -translate-y-4">
-                            <label for="guests" class="block text-gold text-xs tracking-widest uppercase mb-2" data-lang-key="rsvpGuests">Number of Guests</label>
-                            <select id="guests" name="guests" class="w-full bg-white/5 border border-white/20 text-white px-4 py-3 focus:outline-none focus:border-gold focus:bg-white/10 transition-all duration-300 appearance-none cursor-pointer">
-                                <option value="1" class="bg-[#1B263B] text-white">1 (Just Me)</option>
-                                <option value="2" class="bg-[#1B263B] text-white">2 (+1 Guest)</option>
-                                <option value="3" class="bg-[#1B263B] text-white">3 (+2 Guests)</option>
-                                <option value="4" class="bg-[#1B263B] text-white">4 (+3 Guests)</option>
-                                <option value="5" class="bg-[#1B263B] text-white">5 (+4 Guests)</option>
-                            </select>
-                        </div>
-
-                        <button type="submit" id="rsvp-submit-btn" class="w-full bg-gold text-[#1B263B] font-bold py-3 px-6 uppercase tracking-widest hover:bg-white hover:shadow-lg transition-all duration-300 shadow-lg mt-4 disabled:bg-gray-500 disabled:cursor-not-allowed text-sm transform active:scale-95">
-                            <span data-lang-key="rsvpSubmit">Confirm Attendance</span>
-                        </button>
-                    </form>
-                    <div id="rsvp-message" class="mt-6 text-center font-playfair italic min-h-[20px]"></div>
-                </div>
-            </div>
-
-            <footer class="mt-20 pb-8 text-[#1B263B]/50 font-cinzel text-xs tracking-widest reveal-on-scroll">
-                <p data-lang-key="footer">With Love | Layla & Omar</p>
-                <span class="eternel-copyright">E T E R N E L . E G &copy; 2026. All Rights Reserved.</span>
-            </footer>
-        </div>
+    <!-- Date row -->
+    <div class="detail-line" id="dl-date">
+      <div class="detail-label" id="lbl-date">Date</div>
+      <div class="detail-value" id="val-date">Friday, October 9th, 2026</div>
     </div>
 
-    <!-- Audio (Hidden) -->
-    <audio id="background-music" loop>
-        <source src="https://drive.google.com/file/d/1v4WxnmkD6wfi1D7200HmvSnXPBCzHtO0" type="audio/mpeg">
-    </audio>
+    <!-- Ceremony row -->
+    <div class="detail-line" id="dl-ceremony">
+      <div class="detail-label" id="lbl-ceremony">Wedding Ceremony</div>
+      <div class="detail-value" id="val-ceremony">Cigarral Del Angel</div>
+      <div class="detail-time" id="val-time">16:00 — 22:00</div>
+    </div>
 
-    <script>
-        // --- PRELOADER LOGIC ---
-        // Wait for everything (images, css, etc.) to load
-        window.onload = function() {
-            const preloader = document.getElementById('preloader');
-            // Slight timeout to ensure smooth transition
-            setTimeout(() => {
-                preloader.style.opacity = '0';
-                preloader.style.visibility = 'hidden';
-            }, 500);
-        };
+    <!-- Location + Maps link -->
+    <div class="detail-line" id="dl-location">
+      <div class="detail-label" id="lbl-location">Location</div>
+      <div class="detail-venue" id="val-venue">Cigarral Del Angel</div>
+      <!-- ◄─ GOOGLE MAPS URL — change href to your real venue link -->
+      <a class="detail-map-link"
+         href="https://maps.app.goo.gl/X3gn22Nc8vt428Lp6?g_st=ic"
+         target="_blank" rel="noopener"
+         id="map-link">↗ Open in Google Maps</a>
+    </div>
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const joinUsBtn = document.getElementById('join-us-btn');
-            const backBtn = document.getElementById('back-btn');
-            const body = document.body;
-            const langToggleBtn = document.getElementById('lang-toggle-btn');
-            
-            // Audio elements
-            const bgMusic = document.getElementById('background-music');
-            const audioControl = document.getElementById('audio-control');
-
-            // --- Particle System (Gold Dust) ---
-            const canvas = document.getElementById('particles-canvas');
-            const ctx = canvas.getContext('2d');
-            let particlesArray;
-
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-
-            class Particle {
-                constructor() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * canvas.height;
-                    this.size = Math.random() * 2;
-                    this.speedX = (Math.random() * 0.4) - 0.2;
-                    this.speedY = (Math.random() * 0.4) - 0.2;
-                    this.opacity = Math.random() * 0.5 + 0.1;
-                    this.color = '#D4AF37'; 
-                }
-                update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-                    if (this.opacity > 0.01) this.opacity -= 0.002;
-                    else this.opacity = Math.random() * 0.5 + 0.1;
-                    
-                    // Wrap around screen
-                    if (this.x > canvas.width) this.x = 0;
-                    if (this.x < 0) this.x = canvas.width;
-                    if (this.y > canvas.height) this.y = 0;
-                    if (this.y < 0) this.y = canvas.height;
-                }
-                draw() {
-                    ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-            }
-
-            function initParticles() {
-                particlesArray = [];
-                for (let i = 0; i < 100; i++) {
-                    particlesArray.push(new Particle());
-                }
-            }
-
-            function animateParticles() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                for (let i = 0; i < particlesArray.length; i++) {
-                    particlesArray[i].update();
-                    particlesArray[i].draw();
-                }
-                requestAnimationFrame(animateParticles);
-            }
-
-            initParticles();
-            animateParticles();
-
-            // Resize canvas on window resize
-            window.addEventListener('resize', () => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                initParticles();
-            });
-
-            // --- Scroll Reveal Observer ---
-            const observerOptions = {
-                threshold: 0.15,
-                rootMargin: "0px 0px -50px 0px"
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target); // Only animate once
-                    }
-                });
-            }, observerOptions);
-
-            const revealElements = document.querySelectorAll('.reveal-on-scroll');
-            revealElements.forEach(el => observer.observe(el));
-
-            // --- Navigation Animations ---
-            joinUsBtn.addEventListener('click', () => {
-                // Ensure page 2 is visible before animation starts
-                body.classList.add('show-page2');
-                
-                // Try playing music on entry
-                if (bgMusic.paused) {
-                    bgMusic.play().catch(e => console.log("Auto-play prevented"));
-                }
-                
-                // Allow interactions with page 2 after animation
-                setTimeout(() => {
-                    document.getElementById('page2').style.overflow = 'auto';
-                }, 1000);
-            });
-
-            backBtn.addEventListener('click', () => {
-                document.getElementById('page2').scrollTo({top: 0, behavior: 'smooth'});
-                setTimeout(() => {
-                    body.classList.remove('show-page2');
-                }, 300);
-            });
-
-            audioControl.addEventListener('click', () => {
-                if (bgMusic.paused) {
-                    bgMusic.play();
-                    audioControl.classList.remove('opacity-50');
-                } else {
-                    bgMusic.pause();
-                    audioControl.classList.add('opacity-50');
-                }
-            });
-
-            // --- Translations ---
-            let currentLang = 'en';
-            const translations = {
-                en: {
-                    welcome: "The Wedding Of",
-                    enterButton: "Enter",
-                    backButton: "← Back",
-                    saveTheDate: "Save The Date",
-                    detailsSubtitle: "We look forward to sharing this joyous occasion with you.",
-                    galleryTitle: "Our Moments",
-                    viewFullGallery: "View Full Album",
-                    days: "Days", hours: "Hours", minutes: "Mins", seconds: "Secs",
-                    countdownOver: "Today is the day!",
-                    ktabTitle: "Katb El-Kitab",
-                    ktabLocation: "Al Fattah Al Alim Mosque",
-                    ktabAddress: "The New Capital's",
-                    mapButton: "Map", calendarButton: "Calendar",
-                    celebTitle: "The Celebration",
-                    celebTime: "8:00 PM onwards",
-                    celebLocation: "Hilton Pyramids Golf",
-                    celebAddress: "El Wahat Rd, First 6th of October, Giza Governorate",
-                    rsvpTitle: "RSVP",
-                    rsvpSubtitle: "Kindly respond by September 1st",
-                    rsvpName: "Full Name",
-                    rsvpAttend: "Attendance",
-                    rsvpBoth: "Both Ceremonies",
-                    rsvpKtabOnly: "Katb El-Kitab Only",
-                    rsvpCelebOnly: "Celebration Only",
-                    rsvpNo: "Regretfully Decline",
-                    rsvpGuests: "Number of Guests",
-                    rsvpSubmit: "Confirm Attendance",
-                    rsvpSuccess: "Thank you. We look forward to seeing you.",
-                    rsvpError: "An error occurred. Please try again.",
-                    rsvpLoading: "Sending...",
-                    footer: "With Love | Layla & Omar"
-                },
-                ar: {
-                    welcome: "حفل زفاف",
-                    enterButton: "دخول",
-                    backButton: "عودة →",
-                    saveTheDate: "احفظوا التاريخ",
-                    detailsSubtitle: "مستنينكم تشاركونا فرحتنا",
-                    galleryTitle: "لحظاتنا",
-                    viewFullGallery: "عرض الألبوم الكامل",
-                    days: "يوم", hours: "ساعة", minutes: "دقيقة", seconds: "ثانية",
-                    countdownOver: "إنه اليوم المنتظر!",
-                    ktabTitle: "كتب الكتاب",
-                    ktabLocation: "مسجد الفتاح العليم",
-                    ktabAddress: "العاصمة الجديدة",
-                    mapButton: "الخريطة", calendarButton: "التقويم",
-                    celebTitle: "حفل الزفاف",
-                    celebTime: "٨:٠٠ مساءً",
-                    celebLocation: "هيلتون بيراميدز جولف",
-                    celebAddress: "طريق الواحات، السادس من أكتوبر",
-                    rsvpTitle: "تأكيد الحضور",
-                    rsvpSubtitle: "يرجى الرد قبل ١ سبتمبر",
-                    rsvpName: "الاسم الكامل",
-                    rsvpAttend: "الحضور",
-                    rsvpBoth: "كتب الكتاب والزفاف",
-                    rsvpKtabOnly: "كتب الكتاب فقط",
-                    rsvpCelebOnly: "الزفاف فقط",
-                    rsvpNo: "أعتذر عن الحضور",
-                    rsvpGuests: "عدد الأفراد",
-                    rsvpSubmit: "تأكيد",
-                    rsvpSuccess: "شكراً لك. بانتظار تشريفكم.",
-                    rsvpError: "حدث خطأ. يرجى المحاولة مرة أخرى.",
-                    rsvpLoading: "جار الإرسال...",
-                    footer: "بكل الحب | ليلى و عمر"
-                }
-            };
-
-            function setLanguage(lang) {
-                currentLang = lang;
-                const elements = document.querySelectorAll('[data-lang-key]');
-                elements.forEach(el => {
-                    const key = el.dataset.langKey;
-                    if (translations[lang][key]) {
-                        // Fade out text change effect
-                        el.style.opacity = '0';
-                        setTimeout(() => {
-                            el.innerHTML = translations[lang][key];
-                            el.style.opacity = '1';
-                        }, 200);
-                    }
-                });
-
-                if (lang === 'ar') {
-                    document.documentElement.setAttribute('dir', 'rtl');
-                    document.documentElement.setAttribute('lang', 'ar');
-                    langToggleBtn.textContent = 'English';
-                    body.classList.add('font-tajawal');
-                } else {
-                    document.documentElement.setAttribute('dir', 'ltr');
-                    document.documentElement.setAttribute('lang', 'en');
-                    langToggleBtn.textContent = 'العربية';
-                    body.classList.remove('font-tajawal');
-                }
-                updateCountdown(); 
-            }
-
-            langToggleBtn.addEventListener('click', () => {
-                setLanguage(currentLang === 'en' ? 'ar' : 'en');
-            });
+  </div><!-- /details-card -->
+</div><!-- /scene-details -->
 
 
-            // --- Countdown ---
-            const countdownEl = document.getElementById('countdown');
-            const weddingDate = new Date('2026-10-25T18:00:00+03:00').getTime();
+<!-- ════════════════════════════════════════════════════════
+     SCENE 3 — MEMORIES & PHOTO SHARING
+     ════════════════════════════════════════════════════════ -->
+<div id="scene-memories">
+  <div class="memories-bg"></div>
+  <div class="memories-overlay"></div>
 
-            function updateCountdown() {
-                const now = new Date().getTime();
-                const distance = weddingDate - now;
+  <!-- Floating gold sparkles (purely decorative) -->
+  <div class="mem-sparkle"></div>
+  <div class="mem-sparkle"></div>
+  <div class="mem-sparkle"></div>
+  <div class="mem-sparkle"></div>
+  <div class="mem-sparkle"></div>
+  <div class="mem-sparkle"></div>
+  <div class="mem-sparkle"></div>
+  <div class="mem-sparkle"></div>
 
-                if (distance < 0) {
-                    countdownEl.innerHTML = `<div class="text-center w-full font-playfair text-3xl text-gold animate-bounce">${translations[currentLang].countdownOver}</div>`;
-                    return;
-                }
+  <div class="memories-content">
 
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+    <!-- Expanding ornament line above title -->
+    <div class="mem-ornament-line" id="mem-ornament"><span>✦</span></div>
 
-                const makeBox = (val, label, animate = false) => `
-                    <div class="flex flex-col items-center justify-center border border-[#1B263B]/10 bg-white w-20 h-24 rounded-sm shadow-md transition-transform hover:scale-105 ${animate ? 'animate-pulse-soft' : ''}">
-                        <span class="font-playfair font-bold text-3xl text-[#1B263B]">${val}</span>
-                        <span class="font-cinzel text-[10px] uppercase tracking-wider text-gray-400 mt-1">${label}</span>
-                    </div>
-                `;
+    <!-- Section title — edit in JS translations -->
+    <div class="memories-title" id="mem-title">Share Your Moments</div>
 
-                countdownEl.innerHTML = `
-                    ${makeBox(days, translations[currentLang].days)}
-                    ${makeBox(hours, translations[currentLang].hours)}
-                    ${makeBox(minutes, translations[currentLang].minutes)}
-                    ${makeBox(seconds, translations[currentLang].seconds, true)}
-                `;
-            }
-            setInterval(updateCountdown, 1000);
-            updateCountdown();
+    <!-- Subtitle — edit in JS translations -->
+    <div class="memories-subtitle" id="mem-subtitle">
+      Captured a beautiful moment with us?<br>
+      Upload your photos &amp; videos so we can treasure them together.
+    </div>
 
-            // --- RSVP Logic ---
-            const rsvpForm = document.getElementById('rsvp-form');
-            const guestsSection = document.getElementById('guests-section');
-            const rsvpMessage = document.getElementById('rsvp-message');
-            const rsvpSubmitBtn = document.getElementById('rsvp-submit-btn');
-            // This is a demo script URL. You must deploy your own Google Apps Script for it to work fully.
-            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyGqz-MLzmVakhe7N-vs-chQOGC3OLyBb4CZxt79_MPtdqHgGI2psPQYavps0wZA9n9bw/exec'; 
+    <!-- ◄─ GOOGLE DRIVE BUTTON
+         Replace href="YOUR_GOOGLE_DRIVE_LINK" with your real shared folder URL -->
+    <a class="mem-share-btn"
+       id="mem-share-btn"
+       href="YOUR_GOOGLE_DRIVE_LINK"
+       target="_blank" rel="noopener">
+      <span class="btn-icon">📷</span>
+      <span id="mem-share-text">Upload Your Photos</span>
+    </a>
 
-            const attendingOptions = ['Both', 'Katb El-Kitab only', 'The Celebration only'];
+  </div>
+</div><!-- /scene-memories -->
 
-            rsvpForm.attending.forEach(radio => {
-                radio.addEventListener('change', (e) => {
-                    if (attendingOptions.includes(e.target.value)) {
-                        guestsSection.classList.remove('hidden');
-                        setTimeout(() => {
-                            guestsSection.classList.remove('opacity-0', '-translate-y-4');
-                        }, 10);
-                        document.getElementById('guests').required = true;
-                    } else {
-                        guestsSection.classList.add('opacity-0', '-translate-y-4');
-                        setTimeout(() => {
-                            guestsSection.classList.add('hidden');
-                        }, 300);
-                        document.getElementById('guests').required = false;
-                    }
-                });
-            });
 
-            rsvpForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                rsvpSubmitBtn.disabled = true;
-                rsvpSubmitBtn.querySelector('span').textContent = translations[currentLang].rsvpLoading;
+<!-- ════════════════════════════════════════════════════════
+     BACKGROUND MUSIC
+     ◄─ Place music.mp3 in the same folder as this HTML file.
+        Or replace "music.mp3" with a full URL.
+     ════════════════════════════════════════════════════════ -->
+<audio id="bg-music" loop>
+  <source src="music.mp3" type="audio/mpeg"> <!-- ◄─ MUSIC FILE PATH -->
+</audio>
 
-                const formData = new FormData(rsvpForm);
-                const attendingValue = formData.get('attending');
-                
-                const data = {
-                    name: formData.get('name'),
-                    attending: attendingValue,
-                    guests: attendingOptions.includes(attendingValue) ? formData.get('guests') : 0
-                };
 
-                fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    cache: 'no-cache',
-                    headers: {'Content-Type': 'application/json'},
-                    redirect: 'follow',
-                    body: JSON.stringify(data)
-                })
-                .then(res => {
-                    rsvpMessage.textContent = translations[currentLang].rsvpSuccess;
-                    rsvpMessage.className = 'mt-6 text-center text-green-600 font-cinzel animate-[fadeIn_0.5s_ease]';
-                    rsvpForm.reset();
-                    guestsSection.classList.add('hidden', 'opacity-0');
-                })
-                .catch(error => {
-                    rsvpMessage.textContent = translations[currentLang].rsvpError;
-                    rsvpMessage.className = 'mt-6 text-center text-red-600 font-cinzel animate-[fadeIn_0.5s_ease]';
-                })
-                .finally(() => {
-                    rsvpSubmitBtn.disabled = false;
-                    rsvpSubmitBtn.querySelector('span').textContent = translations[currentLang].rsvpSubmit;
-                });
-            });
+<!-- ════════════════════════════════════════════════════════
+     JAVASCRIPT
+     ════════════════════════════════════════════════════════ -->
+<script>
 
-            // Calendar & Maps logic
-            function generateGoogleCalendarLink({ title, startTime, endTime, location, details }) {
-                const toUtcString = (date) => date.toISOString().replace(/[-:.]/g, '').slice(0, 15) + 'Z';
-                const baseUrl = 'https://www.google.com/calendar/render?action=TEMPLATE';
-                const params = new URLSearchParams({
-                    text: title,
-                    dates: `${toUtcString(startTime)}/${toUtcString(endTime)}`,
-                    location: location,
-                    details: details
-                });
-                return `${baseUrl}&${params.toString()}`;
-            }
+/* ──────────────────────────────────────────────────────────
+   ⏱  TIMING  — adjust these to control pacing
+   ────────────────────────────────────────────────────────── */
+const LOADER_DURATION_MS  = 2600;  /* ◄─ How long loader shows (ms) */
+const HERO_DURATION_MS    = 8000;  /* ◄─ How long scene 1 plays (ms) */
+const DETAILS_DURATION_MS = 10000; /* ◄─ How long scene 2 plays (ms) */
 
-            const ktabEvent = {
-                title: 'Katb El-Kitab: Layla & Omar',
-                startTime: new Date('2025-10-12T18:00:00+03:00'),
-                endTime: new Date('2025-10-12T19:00:00+03:00'),
-                location: 'Mosque of Sariyat al-Jabal',
-                details: 'Katb El-Kitab ceremony.'
-            };
-            const celebEvent = {
-                title: 'Wedding: Layla & Omar',
-                startTime: new Date('2025-10-12T20:00:00+03:00'),
-                endTime: new Date('2025-10-13T00:00:00+03:00'),
-                location: 'Aurora lounge, Obour',
-                details: 'Wedding celebration.'
-            };
+/* ──────────────────────────────────────────────────────────
+   🌍  TRANSLATIONS
+   Edit any value here to change displayed text.
+   Both English (en) and Arabic (ar) versions.
+   ────────────────────────────────────────────────────────── */
+const t = {
+  en: {
+    /* ── Scene 1 Hero ── */
+    heroNames:   'Hana &amp; Abdelrahman', /* ◄─ HERO NAMES (HTML) */
+    scrollHint:  'Scroll to discover',
+    langBtn:     '🇸🇦 العربية',
 
-            document.getElementById('cal-ktab').href = generateGoogleCalendarLink(ktabEvent);
-            document.getElementById('cal-celeb').href = generateGoogleCalendarLink(celebEvent);
+    /* ── Scene 2 Details ── */
+    name1:       'Hana Amer',
+    name2:       'Abdelrahman Barake',
+    lblDate:     'Date',
+    valDate:     'Friday, October 9th, 2026',
+    lblCeremony: 'Wedding Ceremony',
+    valCeremony: 'Cigarral Del Angel',
+    valTime:     '16:00 — 22:00',
+    lblLocation: 'Location',
+    valVenue:    'Cigarral Del Angel',
+    mapLink:     '↗ Open in Google Maps',
 
-            setLanguage('en');
-        });
-    </script>
+    /* ── Scene 3 Memories ── */
+    memTitle:    'Share Your Moments',
+    memSubtitle: 'Captured a beautiful moment with us?<br>Upload your photos &amp; videos so we can treasure them together.',
+    memShare:    'Upload Your Photos',
+  },
+  ar: {
+    /* ── Scene 1 Hero ── */
+    heroNames:   'هنا &amp; عبد الرحمن',
+    scrollHint:  'اكتشف التفاصيل',
+    langBtn:     '🇬🇧 English',
+
+    /* ── Scene 2 Details ── */
+    name1:       'هنا عامر',
+    name2:       'عبد الرحمن براكة',
+    lblDate:     'التاريخ',
+    valDate:     'الجمعة، ٩ أكتوبر ٢٠٢٦',
+    lblCeremony: 'حفل الزفاف',
+    valCeremony: 'سيجارال ديل أنجيل',
+    valTime:     '١٦:٠٠ — ٢٢:٠٠',
+    lblLocation: 'الموقع',
+    valVenue:    'سيجارال ديل أنجيل',
+    mapLink:     '↗ فتح في خرائط جوجل',
+
+    /* ── Scene 3 Memories ── */
+    memTitle:    'شاركونا لحظاتكم',
+    memSubtitle: 'التقطتم لحظة جميلة معنا؟<br>شاركوا صوركم ومقاطع الفيديو لنحتفظ بها معاً.',
+    memShare:    'رفع الصور',
+  }
+};
+
+/* ──────────────────────────────────────────────────────────
+   STATE
+   ────────────────────────────────────────────────────────── */
+let lang         = 'en';
+let musicPlaying = false;
+let scene        = 1; // 1=hero | 2=details | 3=memories
+
+const audio     = document.getElementById('bg-music');
+const musicBtn  = document.getElementById('music-btn');
+const sceneHero = document.getElementById('scene-hero');
+const sceneDets = document.getElementById('scene-details');
+const sceneMems = document.getElementById('scene-memories');
+
+/* ──────────────────────────────────────────────────────────
+   APPLY LANGUAGE — updates all text nodes + RTL/LTR
+   ────────────────────────────────────────────────────────── */
+function applyLang(l) {
+  const tx = t[l];
+  document.getElementById('heroNamesText').innerHTML   = tx.heroNames;
+  document.getElementById('scrollHintText').textContent= tx.scrollHint;
+  document.getElementById('lang-btn').innerHTML        = tx.langBtn;
+  document.getElementById('name1').textContent         = tx.name1;
+  document.getElementById('name2').textContent         = tx.name2;
+  document.getElementById('lbl-date').textContent      = tx.lblDate;
+  document.getElementById('val-date').textContent      = tx.valDate;
+  document.getElementById('lbl-ceremony').textContent  = tx.lblCeremony;
+  document.getElementById('val-ceremony').textContent  = tx.valCeremony;
+  document.getElementById('val-time').textContent      = tx.valTime;
+  document.getElementById('lbl-location').textContent  = tx.lblLocation;
+  document.getElementById('val-venue').textContent     = tx.valVenue;
+  document.getElementById('map-link').textContent      = tx.mapLink;
+  document.getElementById('mem-title').textContent     = tx.memTitle;
+  document.getElementById('mem-subtitle').innerHTML    = tx.memSubtitle;
+  document.getElementById('mem-share-text').textContent= tx.memShare;
+
+  const body = document.body;
+  const html = document.documentElement;
+  if (l === 'ar') {
+    body.classList.add('ar');
+    html.setAttribute('dir', 'rtl');
+    html.setAttribute('lang', 'ar');
+  } else {
+    body.classList.remove('ar');
+    html.setAttribute('dir', 'ltr');
+    html.setAttribute('lang', 'en');
+  }
+}
+
+function toggleLang() {
+  lang = (lang === 'en') ? 'ar' : 'en';
+  applyLang(lang);
+}
+
+/* ──────────────────────────────────────────────────────────
+   MUSIC TOGGLE
+   ────────────────────────────────────────────────────────── */
+function toggleMusic() {
+  if (musicPlaying) {
+    audio.pause();
+    musicBtn.textContent = '🎵';
+    musicBtn.classList.remove('playing');
+  } else {
+    audio.play().catch(() => {}); /* browsers may block until user interaction */
+    musicBtn.textContent = '🎶';
+    musicBtn.classList.add('playing');
+  }
+  musicPlaying = !musicPlaying;
+}
+
+/* ──────────────────────────────────────────────────────────
+   LOADER → SCENE 1
+   ────────────────────────────────────────────────────────── */
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+    setTimeout(goToDetails, HERO_DURATION_MS);
+  }, LOADER_DURATION_MS);
+});
+
+/* ──────────────────────────────────────────────────────────
+   SCENE 1 → SCENE 2
+   Called automatically after HERO_DURATION_MS,
+   or immediately when user clicks the scroll hint.
+   ────────────────────────────────────────────────────────── */
+function goToDetails() {
+  if (scene !== 1) return;
+  scene = 2;
+  sceneHero.classList.add('exit');        /* blur + zoom exit */
+  sceneDets.classList.add('visible');
+  setTimeout(() => {
+    sceneHero.style.display = 'none';
+    animateDetailLines();
+    setTimeout(goToMemories, DETAILS_DURATION_MS);
+  }, 1700);
+}
+
+/* ──────────────────────────────────────────────────────────
+   SCENE 2 → SCENE 3
+   ────────────────────────────────────────────────────────── */
+function goToMemories() {
+  if (scene !== 2) return;
+  scene = 3;
+  sceneDets.style.transition = 'opacity 1.6s ease';
+  sceneDets.style.opacity    = '0';
+  sceneMems.classList.add('visible');
+  setTimeout(() => {
+    sceneDets.style.display = 'none';
+    animateMemoryContent();
+  }, 1700);
+}
+
+/* ──────────────────────────────────────────────────────────
+   STAGGERED REVEAL — scene 2 lines fade in one by one
+   Delay between each line = 180ms (adjust here)
+   ────────────────────────────────────────────────────────── */
+function animateDetailLines() {
+  const lines = document.querySelectorAll('.detail-line');
+  lines.forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), i * 180); /* ◄─ STAGGER DELAY (ms) */
+  });
+}
+
+/* ──────────────────────────────────────────────────────────
+   ANIMATE SCENE 3 ELEMENTS (ornament → title → subtitle → btn)
+   Delays in ms after scene appears
+   ────────────────────────────────────────────────────────── */
+function animateMemoryContent() {
+  setTimeout(() => document.getElementById('mem-ornament').classList.add('visible'),  200);
+  setTimeout(() => document.getElementById('mem-title').classList.add('visible'),     500);
+  setTimeout(() => document.getElementById('mem-subtitle').classList.add('visible'),  850);
+  setTimeout(() => document.getElementById('mem-share-btn').classList.add('visible'), 1200);
+}
+
+/* ──────────────────────────────────────────────────────────
+   GOLD DUST PARTICLES — canvas animation on scene 1
+   PARTICLE_COUNT: number of floating dust motes
+   ────────────────────────────────────────────────────────── */
+const PARTICLE_COUNT = 90; /* ◄─ PARTICLE COUNT */
+
+const canvas = document.getElementById('particles-canvas');
+const ctx    = canvas.getContext('2d');
+
+function resizeCanvas() {
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+class Particle {
+  constructor() { this.reset(true); }
+  reset(randomLife = false) {
+    this.x       = Math.random() * canvas.width;
+    this.y       = Math.random() * canvas.height;
+    this.size    = Math.random() * 1.8 + 0.4;
+    this.speedX  = (Math.random() - 0.5) * 0.35;
+    this.speedY  = -(Math.random() * 0.45 + 0.08);
+    this.opacity = Math.random() * 0.45 + 0.1;
+    this.maxLife = Math.random() * 220 + 100;
+    this.life    = randomLife ? Math.floor(Math.random() * this.maxLife) : 0;
+    /* Gold color variation */
+    this.r = 200 + Math.floor(Math.random() * 38);
+    this.g = 162 + Math.floor(Math.random() * 38);
+    this.b = 98  + Math.floor(Math.random() * 28);
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    this.life++;
+    const ratio = this.life / this.maxLife;
+    this.alpha  = this.opacity * Math.sin(ratio * Math.PI);
+    if (this.life >= this.maxLife || this.y < -10) this.reset();
+  }
+  draw() {
+    ctx.save();
+    ctx.globalAlpha = this.alpha;
+    ctx.fillStyle   = `rgb(${this.r},${this.g},${this.b})`;
+    ctx.shadowBlur  = 7;
+    ctx.shadowColor = `rgba(${this.r},${this.g},${this.b},0.85)`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+}
+
+const particles = Array.from({ length: PARTICLE_COUNT }, () => new Particle());
+
+(function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animateParticles);
+})();
+
+/* ──────────────────────────────────────────────────────────
+   MOUSE PARALLAX on hero — bg image follows cursor subtly
+   PARALLAX_STRENGTH: pixels of movement range
+   ────────────────────────────────────────────────────────── */
+const PARALLAX_STRENGTH = 8; /* ◄─ PARALLAX INTENSITY */
+
+document.addEventListener('mousemove', (e) => {
+  if (scene !== 1) return;
+  const xPct = (e.clientX / window.innerWidth  - 0.5) * 2;
+  const yPct = (e.clientY / window.innerHeight - 0.5) * 2;
+  document.getElementById('heroBg').style.transform =
+    `scale(1.08) translate(${xPct * -PARALLAX_STRENGTH}px, ${yPct * -PARALLAX_STRENGTH}px)`;
+});
+
+</script>
 </body>
 </html>
