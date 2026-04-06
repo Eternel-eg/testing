@@ -33,7 +33,7 @@
        ════════════════════════════════════════════════════════ */
     :root {
       /* ── Colors ── */
-      --gold:        #c9a96e;   /* ◄─ EDIT: MAIN GOLD COLOR (used for icons, dividers, borders) */
+      --gold:        #4f2706;   /* ◄─ EDIT: MAIN GOLD COLOR (used for icons, dividers, borders) */
       --gold-light:  #464C39;   /* ◄─ EDIT: LIGHT GOLD COLOR (used for most text on dark backgrounds) */
       --gold-dark:   #a07840;   /* ◄─ EDIT: DEEP GOLD COLOR (used for hover effects) */
       --page-bg:     #0d0905;   /* ◄─ EDIT: PAGE BACKGROUND COLOR (dark color between/behind images) */
@@ -198,7 +198,7 @@
     .hero-bg {
       position: absolute; inset: 0;
       background-image: url('https://drive.google.com/thumbnail?id=1zbfUy2kBRirB16vbtz6vYJg0ISdmfEB7&sz=w1920'); /* ◄─ EDIT: SCENE 1 IMAGE URL */
-      background-size: contain;           /* ◄─ EDIT: IMAGE SIZING (contain = show full image, cover = fill screen) */
+      background-size: cover;             /* ◄─ EDIT: IMAGE SIZING (cover makes it full screen) */
       background-repeat: no-repeat;
       background-position: center center; /* ◄─ EDIT: IMAGE POSITIONING */
       background-color: var(--page-bg);   /* ◄─ EDIT: BACKGROUND COLOR BEHIND IMAGE */
@@ -239,7 +239,7 @@
     /* ── Next Page Button on Front Page ── */
     .hero-next-btn {
       position: absolute;
-      bottom: clamp(2rem, 5vw, 4rem);    /* ◄─ EDIT: POSITION (distance from bottom of screen) */
+      bottom: 1.5rem;                    /* ◄─ EDIT: FIXED TO BOTTOM OF SCREEN */
       left: 50%; transform: translateX(-50%);
       opacity: 0; animation: fadeUpBtn 1s ease forwards 3.2s;
     }
@@ -274,7 +274,7 @@
     .details-bg {
       position: fixed; inset: 0; z-index: -1;
       background-image: url('https://drive.google.com/thumbnail?id=1AL9OucinIG6OJLFzPAAGpldOEbn3t7B_&sz=w1920'); /* ◄─ EDIT: SCENE 2 IMAGE URL */
-      background-size: contain;           /* ◄─ EDIT: IMAGE SIZING */
+      background-size: cover;             /* ◄─ EDIT: IMAGE SIZING (cover makes it full screen) */
       background-repeat: no-repeat;
       background-position: center center; /* ◄─ EDIT: IMAGE POSITIONING */
       background-color: var(--page-bg);   /* ◄─ EDIT: BACKGROUND COLOR BEHIND IMAGE */
@@ -322,7 +322,7 @@
     /* ── Small Labels (e.g. "Date", "Location") ── */
     .detail-label {
       font-family: var(--serif);         /* ◄─ EDIT: FONT TYPE */
-      font-size: var(--fs-xs);           /* ◄─ EDIT: FONT SIZE */
+      font-size: calc(var(--fs-xs) * 1.2); /* ◄─ EDIT: FONT SIZE (+20% INCREASE) */
       color: var(--gold);                /* ◄─ EDIT: TEXT COLOR */
       letter-spacing: 3px; text-transform: uppercase; opacity: 0.62; margin-bottom: 0.25rem;
     }
@@ -330,7 +330,7 @@
     /* ── Values (e.g. "Friday...", "16:00") ── */
     .detail-value {
       font-family: var(--serif);         /* ◄─ EDIT: FONT TYPE */
-      font-size: var(--fs-md);           /* ◄─ EDIT: FONT SIZE */
+      font-size: calc(var(--fs-md) * 1.2); /* ◄─ EDIT: FONT SIZE (+20% INCREASE) */
       color: rgba(252,252,252,0.92);     /* ◄─ EDIT: TEXT COLOR */
       font-weight: 500; letter-spacing: 0.5px; margin-bottom: 0.85rem;
     }
@@ -338,7 +338,7 @@
     /* ── Time Value ── */
     .detail-time {
       font-family: var(--serif);         /* ◄─ EDIT: FONT TYPE */
-      font-size: var(--fs-sm);           /* ◄─ EDIT: FONT SIZE */
+      font-size: calc(var(--fs-sm) * 1.2); /* ◄─ EDIT: FONT SIZE (+20% INCREASE) */
       color: rgba(168, 112, 66,0.72);     /* ◄─ EDIT: TEXT COLOR */
       letter-spacing: 1.5px; margin-top: 0.15rem;
     }
@@ -346,7 +346,7 @@
     /* ── Venue Name ── */
     .detail-venue {
       font-family: var(--serif);         /* ◄─ EDIT: FONT TYPE */
-      font-size: var(--fs-lg);           /* ◄─ EDIT: FONT SIZE */
+      font-size: calc(var(--fs-lg) * 1.2); /* ◄─ EDIT: FONT SIZE (+20% INCREASE) */
       color: var(--gold-light);          /* ◄─ EDIT: TEXT COLOR */
       font-style: italic; margin-bottom: 0.2rem;
     }
@@ -354,7 +354,7 @@
     /* ── Google Maps Link ── */
     .detail-map-link {
       font-family: var(--serif);         /* ◄─ EDIT: FONT TYPE */
-      font-size: var(--fs-xs);           /* ◄─ EDIT: FONT SIZE */
+      font-size: calc(var(--fs-xs) * 1.2); /* ◄─ EDIT: FONT SIZE (+20% INCREASE) */
       color: var(--gold);                /* ◄─ EDIT: LINK COLOR */
       display: inline-block; margin-top: 0.35rem; letter-spacing: 2.5px; text-transform: uppercase;
       text-decoration: none; border-bottom: 1px solid rgba(201,169,110,0.3); padding-bottom: 1px; transition: all 0.3s ease; opacity: 0.82;
@@ -362,7 +362,12 @@
     .detail-map-link:hover { opacity:1; border-color:var(--gold); letter-spacing:3.5px; }
 
     /* Scene 2 Next button wrapper */
-    .scene-next-wrapper { position: relative; z-index: 2; margin-top: 1rem; margin-bottom: clamp(2rem, 5vw, 4rem); display: flex; justify-content: center; opacity: 0; transition: opacity 1s ease 2s; }
+    .scene-next-wrapper { 
+      position: relative; z-index: 2; 
+      margin-top: auto;                  /* ◄─ EDIT: PUSHED TO VERY BOTTOM */
+      margin-bottom: 1.5rem;             /* ◄─ EDIT: BOTTOM MARGIN */
+      display: flex; justify-content: center; opacity: 0; transition: opacity 1s ease 2s; 
+    }
     .scene-next-wrapper.visible { opacity: 1; }
 
 
@@ -379,7 +384,7 @@
     .memories-bg {
       position: fixed; inset: 0; z-index: -1;
       background-image: url('https://drive.google.com/thumbnail?id=15MZaKL_2RBM-SUnCgRTH4D0G981hQGtp&sz=w1920'); /* ◄─ EDIT: SCENE 3 IMAGE URL */
-      background-size: contain;           /* ◄─ EDIT: IMAGE SIZING */
+      background-size: cover;             /* ◄─ EDIT: IMAGE SIZING (cover makes it full screen) */
       background-repeat: no-repeat;
       background-position: center center; /* ◄─ EDIT: IMAGE POSITIONING */
       background-color: var(--page-bg);   /* ◄─ EDIT: BACKGROUND COLOR BEHIND IMAGE */
@@ -445,7 +450,7 @@
       border-radius: 40px;               /* ◄─ EDIT: BUTTON CORNER ROUNDNESS */
       font-family: var(--serif);         /* ◄─ EDIT: BUTTON FONT TYPE */
       font-size: var(--fs-xs);           /* ◄─ EDIT: BUTTON TEXT SIZE */
-      color: var(--gold-light);          /* ◄─ EDIT: BUTTON TEXT COLOR */
+      color: #ffffff;                    /* ◄─ EDIT: BUTTON TEXT AND ICON COLOR CHANGED TO WHITE */
       letter-spacing: 2.5px; text-transform: uppercase; text-decoration: none; cursor: pointer; backdrop-filter: blur(10px);
       opacity: 0; transform: translateY(16px); transition: all 0.4s ease; box-shadow: 0 0 20px rgba(201,169,110,0.1); animation: btnBreath 4s ease-in-out infinite 2s;
     }
