@@ -297,7 +297,7 @@ html, body {
   justify-content: center;
 
   /* ↓ VERTICAL NUDGE — positive = down, negative = up */
-  margin-top: 0px;
+  margin-top: -10px;
 
   /* ↓ ELEMENT GAP — space between every text item */
   gap: clamp(8px, 2vh, 18px);
