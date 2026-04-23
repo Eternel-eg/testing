@@ -1,0 +1,438 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   WEDDING INVITATION — AYA & MAHMOUD
+   Style: Dreamy Heaven · Cinematic Luxury
+   ═══════════════════════════════════════════════════════════════════════
+
+   ╔══════════════════════════════════════════════════════════╗
+   ║  QUICK CUSTOMIZATION MAP — find sections by emoji        ║
+   ║                                                          ║
+   ║  🎨  GLOBAL COLORS    →  :root block below              ║
+   ║  📐  TEXT POSITION    →  .invitation-wrap               ║
+   ║  📝  LINE 1 SIZE+CLR  →  .together                      ║
+   ║  👰  BRIDE NAME       →  .name-script                   ║
+   ║  🤵  GROOM NAME       →  .name-script--caps             ║
+   ║  &   AMPERSAND        →  .amp-char                      ║
+   ║  📜  LAST LINE        →  .invite-line                   ║
+   ║  ✦   ORNAMENTS        →  .rule-diamond / .bottom-ornament║
+   ║  📱  MOBILE OVERRIDES →  @media blocks at bottom        ║
+   ╚══════════════════════════════════════════════════════════╝
+   ═══════════════════════════════════════════════════════════════════════ */
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   🎨  GLOBAL COLOR PALETTE  — change any value here to restyle everything
+   ═══════════════════════════════════════════════════════════════════════ */
+:root {
+  --ivory:         #f8f3e8;    /* pure ivory white */
+  --champagne:     #e8d5a3;    /* soft champagne   */
+  --champagne-dk:  #c9a96e;    /* darker champagne */
+  --cream:         #faf6ef;    /* warmest white    */
+  --gold:          #c9a45a;    /* base gold        */
+  --gold-lt:       #e2c97e;    /* lighter gold     */
+
+  /* ── Fonts (loaded from Google Fonts in index.html) ── */
+  --font-serif:    'Cormorant Garamond', Georgia, serif;
+  --font-sc:       'Cormorant SC', 'Cormorant Garamond', serif;
+  --font-script:   'Great Vibes', cursive;
+
+  /* ── Easing ── */
+  --ease-silk: cubic-bezier(0.25, 0.1, 0.1, 1);
+  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0d0a07;
+  font-family: var(--font-serif);
+  -webkit-font-smoothing: antialiased;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   SCENE SYSTEM
+   ═══════════════════════════════════════════════════════════════════════ */
+.scene {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1.4s var(--ease-silk);
+  z-index: 10;
+}
+
+.scene.active { opacity: 1;   pointer-events: all;  }
+.scene.hidden { opacity: 0;   pointer-events: none; }
+.scene.gone   { display: none; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   SCREEN 1 — PRELOADER
+   ═══════════════════════════════════════════════════════════════════════ */
+#loader { flex-direction: column; z-index: 100; background: transparent; }
+
+.loader-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 120% 80% at 30% 20%, rgba(200,170,120,0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 100% 100% at 75% 85%, rgba(210,170,130,0.18) 0%, transparent 55%),
+    linear-gradient(160deg, #1a120a 0%, #0f0a06 40%, #150e09 70%, #1c1309 100%);
+  animation: loaderBgPulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes loaderBgPulse { 0% { filter: brightness(1); } 100% { filter: brightness(1.12); } }
+
+.loader-particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+
+.loader-particles .particle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--champagne) 0%, transparent 70%);
+  opacity: 0;
+  animation: floatUp var(--dur, 6s) var(--delay, 0s) ease-in-out infinite;
+}
+
+@keyframes floatUp {
+  0%   { opacity: 0;   transform: translateY(0) scale(0.6);    }
+  20%  { opacity: 0.6; }
+  80%  { opacity: 0.3; }
+  100% { opacity: 0;   transform: translateY(-120px) scale(1); }
+}
+
+.loader-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(24px, 5vw, 40px);
+}
+
+.logo-wrap {
+  position: relative;
+  width: clamp(160px, 35vw, 280px);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-glow {
+  position: absolute;
+  inset: -30%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,164,90,0.28) 0%, transparent 65%);
+  animation: glowPulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes glowPulse { 0% { transform: scale(0.9); opacity: 0.7; } 100% { transform: scale(1.15); opacity: 1; } }
+
+.logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: logoFloat 4s ease-in-out infinite alternate, logoFadeIn 1.6s var(--ease-out) forwards;
+  filter: drop-shadow(0 0 24px rgba(201,164,90,0.5)) drop-shadow(0 0 60px rgba(201,164,90,0.2));
+}
+
+@keyframes logoFloat  { 0% { transform: translateY(0); } 100% { transform: translateY(-10px); } }
+@keyframes logoFadeIn { from { opacity: 0; transform: scale(0.85) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+.loader-subtitle {
+  font-family: var(--font-sc);
+  font-size: clamp(11px, 1.8vw, 14px);
+  letter-spacing: 0.35em;
+  color: rgba(220, 195, 145, 0.7);
+  text-transform: uppercase;
+  animation: subtitleFade 2s 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes subtitleFade { to { opacity: 1; } }
+
+.loader-bar-wrap {
+  width: clamp(100px, 28vw, 180px);
+  height: 1px;
+  background: rgba(201,164,90,0.2);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.loader-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--champagne-dk), var(--gold-lt), var(--champagne-dk));
+  background-size: 200% 100%;
+  border-radius: 1px;
+  transition: width 0.4s ease;
+  animation: shimmer 2s linear infinite;
+}
+
+@keyframes shimmer { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   TAP-TO-ENTER OVERLAY
+   ═══════════════════════════════════════════════════════════════════════ */
+.tap-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(14, 10, 6, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: opacity 0.8s ease;
+}
+
+.tap-overlay.hidden { display: none; }
+
+.tap-inner { display: flex; flex-direction: column; align-items: center; gap: 24px; animation: tapPulse 2.4s ease-in-out infinite; }
+@keyframes tapPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+
+.tap-logo  { width: clamp(100px, 22vw, 160px); filter: drop-shadow(0 0 20px rgba(201,164,90,0.5)); }
+.tap-label { font-family: var(--font-sc); font-size: clamp(12px, 2vw, 16px); letter-spacing: 0.4em; color: var(--champagne); text-transform: uppercase; }
+
+.tap-ring {
+  position: absolute;
+  width: clamp(180px, 38vw, 280px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid rgba(201,164,90,0.3);
+  animation: ringExpand 2.4s ease-out infinite;
+}
+
+@keyframes ringExpand { 0% { transform: scale(0.85); opacity: 0.8; } 100% { transform: scale(1.25); opacity: 0; } }
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   SCREEN 2 — INTRO / BRIDGE (image2)
+   ═══════════════════════════════════════════════════════════════════════ */
+#intro { z-index: 50; overflow: hidden; background: #0d0a07; }
+
+.intro-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  animation: cinematicZoom 5s var(--ease-silk) forwards;
+}
+
+@keyframes cinematicZoom { 0% { transform: scale(1.08); } 100% { transform: scale(1); } }
+
+.intro-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to bottom, rgba(14,10,6,0.4) 0%, rgba(14,10,6,0.05) 40%, rgba(14,10,6,0.05) 65%, rgba(14,10,6,0.5) 100%);
+}
+
+.intro-vignette { position: absolute; inset: 0; z-index: 2; box-shadow: inset 0 0 120px rgba(14,10,6,0.6); pointer-events: none; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   SCREEN 3 — MAIN INVITATION
+   ═══════════════════════════════════════════════════════════════════════ */
+#main { z-index: 20; overflow: hidden; background: #0d0a07; }
+
+/* ── GIF fills the entire screen — no overlay, raw image ── */
+.main-bg-wrap { position: absolute; inset: 0; z-index: 0; }
+
+.main-bg-gif {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* ↓ GIF FRAMING — change to: top | center | bottom | left | right */
+  object-position: center;
+}
+
+/* ── OVERLAYS OFF — change display:none to display:block to re-enable ── */
+.main-overlay-gradient { display: none; }   /* dark gradient layer */
+.main-overlay-vignette { display: none; }   /* edge darkening     */
+
+/* Particle canvas — floating gold motes */
+#particleCanvas {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   📐  TEXT BLOCK POSITION
+   ═══════════════════════════════════════════════════════════════════════
+   justify-content → vertical: flex-start (top) | center | flex-end (bottom)
+   margin-top      → nudge the block down (positive) or up (negative px)
+   max-width       → wider value = text can spread more horizontally
+   gap             → spacing between every line/element
+   padding         → inner breathing room
+   ═══════════════════════════════════════════════════════════════════════ */
+.invitation-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* ↓ VERTICAL ALIGNMENT — change to flex-start or flex-end to move up/down */
+  justify-content: center;
+
+  /* ↓ VERTICAL NUDGE — positive = down, negative = up */
+  margin-top: 0px;
+
+  /* ↓ ELEMENT GAP — space between every text item */
+  gap: clamp(8px, 2vh, 18px);
+
+  /* ↓ INNER PADDING — top/bottom then left/right */
+  padding: clamp(20px, 4vw, 50px) clamp(16px, 6vw, 60px);
+
+  text-align: center;
+
+  /* ↓ MAX TEXT BLOCK WIDTH */
+  max-width: 820px;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* ── Animation: elements start hidden, JS adds .revealed ── */
+.anim-item {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 1.2s var(--ease-out), transform 1.2s var(--ease-out);
+}
+
+.anim-item.revealed { opacity: 1; transform: translateY(0); }
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   ✦  DECORATIVE RULES
+   ═══════════════════════════════════════════════════════════════════════ */
+.deco-rule {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  /* ↓ RULE WIDTH (top rule) */
+  width: clamp(160px, 44vw, 320px);
+}
+
+.deco-rule--sm {
+  /* ↓ RULE WIDTH (between names) */
+  width: clamp(90px, 24vw, 180px);
+}
+
+.rule-line {
+  flex: 1;
+  height: 1px;
+  /* ↓ RULE LINE COLOR — change middle stop */
+  background: linear-gradient(90deg, transparent, rgba(201,164,90,0.75), transparent);
+}
+
+.rule-diamond {
+  /* ↓ DIAMOND SIZE */
+  font-size: clamp(10px, 1.8vw, 14px);
+  /* ↓ DIAMOND COLOR */
+  color: #e2c97e;
+  filter: drop-shadow(0 0 6px rgba(201,164,90,0.8));
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   📝  LINE 1 — "Together with their families"
+   ═══════════════════════════════════════════════════════════════════════ */
+.together {
+  /* ↓ FONT FAMILY */
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-style: italic;
+
+  /* ↓ FONT SIZE — clamp(mobile-min, fluid, desktop-max) */
+  font-size: clamp(16px, 3vw, 26px);
+
+  /* ↓ LETTER SPACING */
+  letter-spacing: 0.14em;
+
+  /* ↓ COLOR */
+  color: #6E1A37;
+
+  /* ↓ TEXT SHADOW — first layer = dark for readability, second = gold glow */
+  text-shadow:
+    0 2px 18px rgba(0, 0, 0, 0.70),
+    0 0  32px rgba(201, 164, 90, 0.30);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   👰  BRIDE NAME — "Aya"
+   ═══════════════════════════════════════════════════════════════════════ */
+.name-script {
+  /* ↓ FONT FAMILY */
+  font-family: var(--font-script);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+
+  /* ↓ FONT SIZE — clamp(mobile-min, fluid-vw, desktop-max) */
+  font-size: clamp(80px, 18vw, 148px);
+
+  /* ↓ COLOR */
+  color: #6E1A37;
+
+  /* ↓ TEXT SHADOW — dark layer first, then gold glow layers */
+  text-shadow:
+    0 3px 32px rgba(0, 0, 0, 0.70),   
+    0 0  60px rgba(201, 164, 90, 0.50),
+    0 0 120px rgba(201, 164, 90, 0.20);
+
+  filter: drop-shadow(0 2px 22px rgba(0, 0, 0, 0.55));
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   🤵  GROOM NAME — "MAHMOUD"  (also uses .name-script above)
+   ═══════════════════════════════════════════════════════════════════════ */
+.name-script--caps {
+  /* ↓ FONT SIZE — slightly smaller so the longer name fits */
+  font-size: clamp(68px, 15vw, 128px);
+
+  /* ↓ COLOR — uncomment to give groom a different color */
+  /* color: #e8d5a3; */
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   &  AMPERSAND ROW
+   ═══════════════════════════════════════════════════════════════════════ */
+.ampersand-wrap {
+  display: flex;
+  align-items: center;
+  /* ↓ ROW WIDTH */
+  gap: clamp(14px, 3.5vw, 28px);
+  width: clamp(180px, 48vw, 360px);
+}
+
+.amp-line {
+  flex: 1;
+  height: 1px;
+  /* ↓ LINE COLOR */
+  background: linear-gradient(90deg, transparent, rgba(201,1
