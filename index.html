@@ -40,7 +40,7 @@
         }
 
         #loader-logo {
-            max-width: 150px;
+            max-width: 450px;
             margin-bottom: 20px;
             animation: pulse 2s infinite ease-in-out;
         }
@@ -116,31 +116,24 @@
             scroll-snap-align: start;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             position: relative;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
         }
 
-        /* البطاقة الزجاجية الشفافة للنصوص */
+        /* البطاقة الزجاجية الشفافة للنصوص - أصبحت شفافة بالكامل الآن */
         .glass-card {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            padding: 2.5rem 2rem;
-            border-radius: 20px;
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            padding: 0 2rem;
             text-align: center;
             width: 90%;
             max-width: 600px;
-            box-shadow: 0 8px 32px rgba(216, 27, 96, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            animation: slideUp 1s ease-out;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            box-shadow: none;
+            border: none;
         }
 
         /* تنسيق النصوص */
@@ -157,7 +150,6 @@
             color: #c2185b;
             margin-bottom: 15px;
             line-height: 1.6;
-            text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
         }
 
         .highlight-name {
@@ -166,8 +158,30 @@
             color: #d81b60;
             font-weight: 800;
             margin: 15px 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
+
+        /* إضافة تحديد (إطار أبيض) قوي للنصوص لحمايتها وضمان وضوحها بعد إزالة الخلفية الشفافة */
+        .text-content p, .poetry, .highlight-name {
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.9), -2px -2px 4px rgba(255,255,255,0.9), 2px -2px 4px rgba(255,255,255,0.9), -2px 2px 4px rgba(255,255,255,0.9), 0px 4px 10px rgba(0,0,0,0.5);
+        }
+
+        /* حركات النصوص (Animations) */
+        .animate-text {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        
+        .animate-text.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* تأخير بسيط لكل سطر لإعطاء تأثير متتابع */
+        .delay-1 { transition-delay: 0.2s; }
+        .delay-2 { transition-delay: 0.5s; }
+        .delay-3 { transition-delay: 0.8s; }
+        .delay-4 { transition-delay: 1.1s; }
 
         /* أيقونة التمرير لأسفل */
         .scroll-down {
@@ -218,36 +232,36 @@
     <div id="main-container">
 
         <!-- الصفحة الأولى (الصورة الأولى) -->
-        <section class="page-section" id="page1" style="background-image: url('image1.gif');">
+        <section class="page-section" id="page1" style="background-image: url('image1.gif'); padding-top: 20vh;">
             <div class="glass-card">
                 <div class="text-content">
-                    <p class="poetry">اقبلت حبيبه ابيها وقره عين ونبض امها</p>
-                    <p>اللهم كما انعمت فزد وكما زدت فبارك وكما باركت فتمم</p>
+                    <p class="poetry animate-text delay-1">اقبلت حبيبه ابيها وقره عين ونبض امها</p>
+                    <p class="animate-text delay-2">اللهم كما انعمت فزد وكما زدت فبارك وكما باركت فتمم</p>
                 </div>
             </div>
             <div class="scroll-down">⧩</div>
         </section>
 
         <!-- الصفحة الثانية (الصورة الثانية) -->
-        <section class="page-section" id="page2" style="background-image: url('image2.gif');">
+        <section class="page-section" id="page2" style="background-image: url('image2.gif'); padding-top: 30vh;">
             <div class="glass-card">
                 <div class="text-content">
-                    <p class="poetry">إنَّ البُيوتَ إذا البناتُ نَزَلْنَها<br>مثلَ السماءِ تَزَيَّنَت بنجومِها</p>
-                    <p>تسعه اشهر ونحن في انتظارك<br>الحمدُ للهِ الذي جعلَ من زينةِ الحياةِ نصيبًا</p>
-                    <p style="font-weight: bold; color: #d81b60; margin-top: 10px;">قره أعيننا بفرحتنا الاولي</p>
+                    <p class="poetry animate-text delay-1">إنَّ البُيوتَ إذا البناتُ نَزَلْنَها<br>مثلَ السماءِ تَزَيَّنَت بنجومِها</p>
+                    <p class="animate-text delay-2">تسعه اشهر ونحن في انتظارك<br>الحمدُ للهِ الذي جعلَ من زينةِ الحياةِ نصيبًا</p>
+                    <p class="animate-text delay-3" style="font-weight: bold; color: #d81b60; margin-top: 10px;">قره أعيننا بفرحتنا الاولي</p>
                 </div>
             </div>
             <div class="scroll-down">⧩</div>
         </section>
 
         <!-- الصفحة الثالثة (الصورة الثالثة) -->
-        <section class="page-section" id="page3" style="background-image: url('image3.gif');">
+        <section class="page-section" id="page3" style="background-image: url('image3.gif'); padding-top: 20vh;">
             <div class="glass-card">
                 <div class="text-content">
-                    <p>مرحبا يافرحه العمر والدار واول مواليد السعاده</p>
-                    <p>رزقنا بفضل من الله بصغيرتنا</p>
-                    <span class="highlight-name">لي لي بنت ايمن</span>
-                    <p>اللهم انبتها نباتا حسنا واجعلها قره عين لنا وبارك لنا فيها</p>
+                    <p class="animate-text delay-1">مرحبا يافرحه العمر والدار واول مواليد السعاده</p>
+                    <p class="animate-text delay-2">رزقنا بفضل من الله بصغيرتنا</p>
+                    <span class="highlight-name animate-text delay-3">لي لي بنت ايمن</span>
+                    <p class="animate-text delay-4">اللهم انبتها نباتا حسنا واجعلها قره عين لنا وبارك لنا فيها</p>
                 </div>
             </div>
         </section>
@@ -301,6 +315,30 @@
                     // إعادة تعيين موضع التمرير لأعلى الصفحة
                     mainContainer.scrollTo(0, 0); 
                 }, 800); // 800 ميلي ثانية تطابق سرعة الـ transition في الـ CSS
+            });
+
+            // مراقب التمرير لتفعيل الأنيميشن عند ظهور الصفحة
+            const observerOptions = {
+                root: mainContainer,
+                threshold: 0.3 // تفعيل الحركة عندما يظهر 30% من الصفحة
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const animatedElements = entry.target.querySelectorAll('.animate-text');
+                        animatedElements.forEach(el => el.classList.add('visible'));
+                    } else {
+                        // إزالة الكلاس لإعادة الحركة عند الرجوع للصفحة
+                        const animatedElements = entry.target.querySelectorAll('.animate-text');
+                        animatedElements.forEach(el => el.classList.remove('visible'));
+                    }
+                });
+            }, observerOptions);
+
+            // مراقبة كل الصفحات
+            document.querySelectorAll('.page-section').forEach(section => {
+                observer.observe(section);
             });
         });
     </script>
