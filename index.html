@@ -134,6 +134,8 @@
             max-width: 600px;
             box-shadow: none;
             border: none;
+            position: relative;
+            z-index: 10; /* لإبقاء النص فوق العلامة المائية */
         }
 
         /* تنسيق النصوص */
@@ -194,6 +196,7 @@
             animation: bounce 2s infinite;
             text-shadow: 0px 2px 5px rgba(0,0,0,0.4);
             pointer-events: none;
+            z-index: 10;
         }
 
         @keyframes bounce {
@@ -214,12 +217,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('logo1.png');
+            background-image: url('logo (1).png');
             background-repeat: repeat;
-            background-size: 180px; /* حجم الشعار في النمط */
-            opacity: 0.25; /* شفافية خفيفة حتى لا تزعج النظر */
-            mix-blend-mode: screen; /* حيلة ممتازة لإخفاء الخلفية السوداء للشعار وإظهار اللون الذهبي فقط */
-            z-index: 1000;
+            background-size: 150px; /* حجم الشعار في النمط */
+            opacity: 0.15; /* شفافية خفيفة حتى لا تزعج النظر للـ PNG الشفاف */
+            z-index: 1; /* خلف النصوص */
             pointer-events: none; /* لمنع التداخل مع نقرات المستخدم */
         }
     </style>
@@ -250,8 +252,8 @@
     <!-- المحتوى الرئيسي للموقع -->
     <div id="main-container">
 
-        <!-- الصفحة الأولى (الصورة الأولى) -->
-        <section class="page-section" id="page1" style="background-image: url('image1.gif'); padding-top: 35vh;">
+        <!-- الصفحة الأولى (الصورة الأولى) - تم رفع النص جداً بتقليل الـ padding -->
+        <section class="page-section" id="page1" style="background-image: url('image1.gif'); padding-top: 5vh;">
             <div class="glass-card">
                 <div class="text-content">
                     <p class="poetry animate-text delay-1">اقبلت حبيبه ابيها وقره عين ونبض امها</p>
@@ -261,8 +263,8 @@
             <div class="scroll-down">⧩</div>
         </section>
 
-        <!-- الصفحة الثانية (الصورة الثانية) -->
-        <section class="page-section" id="page2" style="background-image: url('image2.gif'); padding-top: 40vh;">
+        <!-- الصفحة الثانية (الصورة الثانية) - تم الرفع بنسبة إضافية -->
+        <section class="page-section" id="page2" style="background-image: url('image2.gif'); padding-top: 15vh;">
             <div class="glass-card">
                 <div class="text-content">
                     <p class="poetry animate-text delay-1">إنَّ البُيوتَ إذا البناتُ نَزَلْنَها<br>مثلَ السماءِ تَزَيَّنَت بنجومِها</p>
@@ -273,8 +275,8 @@
             <div class="scroll-down">⧩</div>
         </section>
 
-        <!-- الصفحة الثالثة (الصورة الثالثة) -->
-        <section class="page-section" id="page3" style="background-image: url('image3.gif'); padding-top: 40vh;">
+        <!-- الصفحة الثالثة (الصورة الثالثة) - تم الرفع ليتطابق مع طلبك -->
+        <section class="page-section" id="page3" style="background-image: url('image3.gif'); padding-top: 5vh;">
             <div class="glass-card">
                 <div class="text-content">
                     <p class="animate-text delay-1">مرحبا يافرحه العمر والدار واول مواليد السعاده</p>
@@ -291,7 +293,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // إضافة صورة اللوجو الجديد لقائمة التحميل المسبق لمنع الـ Glitches
-            const imagesToPreload = ['image1.gif', 'image2.gif', 'image3.gif', 'logo.png', 'logo1.png'];
+            const imagesToPreload = ['image1.gif', 'image2.gif', 'image3.gif', 'logo.png', 'logo (1).png'];
             let loadedImagesCount = 0;
 
             const checkAllImagesLoaded = () => {
