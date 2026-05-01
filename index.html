@@ -1,95 +1,308 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <title>Tahany & Ahmed — Wedding Invitation</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cormorant+SC:wght@300;400&family=Great+Vibes&display=swap" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مرحباً بصغيرتنا لي لي</title>
+    
+    <!-- استدعاء خطوط عربية أنيقة من جوجل -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* الإعدادات الأساسية */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            font-family: 'Cairo', sans-serif;
+            background-color: #fff0f5; /* لون وردي فاتح جداً */
+            color: #333;
+            overflow: hidden; /* لمنع التمرير العشوائي */
+        }
+
+        /* شاشة التحميل */
+        #loader-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ffe6f0 0%, #ffcce0 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease-out;
+        }
+
+        #loader-logo {
+            max-width: 150px;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        .loader-text {
+            color: #d81b60;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(216, 27, 96, 0.2);
+            border-top: 4px solid #d81b60;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #start-btn {
+            display: none;
+            background-color: #d81b60;
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            font-size: 1.3rem;
+            font-family: 'Cairo', sans-serif;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(216, 27, 96, 0.4);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        #start-btn:hover {
+            background-color: #ad144b;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(216, 27, 96, 0.6);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* حاوية الصفحات الرئيسية */
+        #main-container {
+            display: none;
+            height: 100vh;
+            width: 100vw;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory; /* للتنقل السلس بين الشاشات */
+            scroll-behavior: smooth;
+        }
+
+        /* إعدادات كل صفحة */
+        .page-section {
+            height: 100vh;
+            width: 100%;
+            scroll-snap-align: start;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* البطاقة الزجاجية الشفافة للنصوص */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 8px 32px rgba(216, 27, 96, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            animation: slideUp 1s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* تنسيق النصوص */
+        .text-content {
+            color: #6a0d35; /* لون عنابي داكن للتباين الممتاز */
+            font-size: 1.4rem;
+            line-height: 1.9;
+            font-weight: 600;
+        }
+
+        .poetry {
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem;
+            color: #c2185b;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
+        }
+
+        .highlight-name {
+            display: block;
+            font-size: 2.2rem;
+            color: #d81b60;
+            font-weight: 800;
+            margin: 15px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* أيقونة التمرير لأسفل */
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+            text-shadow: 0px 2px 5px rgba(0,0,0,0.4);
+            pointer-events: none;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
+            40% { transform: translate(-50%, -15px); }
+            60% { transform: translate(-50%, -7px); }
+        }
+
+        /* إخفاء شريط التمرير لجمالية التصميم */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
-  <div id="loader" class="scene active">
-    <div class="loader-bg"></div>
-    <div class="loader-particles" id="loaderParticles"></div>
+    <!-- ملف الموسيقى (يتم تشغيله برمجياً بعد ضغط زر البدء) -->
+    <audio id="bg-audio" loop>
+        <source src="music1.mp3" type="audio/mpeg">
+    </audio>
 
-    <div class="loader-content">
-      <div class="logo-wrap">
-        <div class="logo-glow"></div>
-        <img src="image1.png" alt="T & A Monogram" class="logo-img" />
-      </div>
-      <p class="loader-subtitle">Loading your invitation&hellip;</p>
-      <div class="loader-bar-wrap">
-        <div class="loader-bar" id="loaderBar"></div>
-      </div>
-    </div>
-  </div>
+    <!-- شاشة التحميل -->
+    <div id="loader-screen">
+        <!-- شعار التحميل -->
+        <img src="logo.png" id="loader-logo" alt="Logo">
+        
+        <div id="loading-indicator">
+            <div class="loader-text">جاري تحضير المفاجأة...</div>
+            <div style="display: flex; justify-content: center;"><div class="spinner"></div></div>
+        </div>
 
-  <div id="tapOverlay" class="tap-overlay hidden">
-    <div class="tap-inner">
-      <img src="image1.png" alt="Monogram" class="tap-logo" />
-      <p class="tap-label">Tap to Enter</p>
-      <div class="tap-ring"></div>
-    </div>
-  </div>
-
-  <div id="intro" class="scene hidden">
-    <div class="intro-overlay"></div>
-    <img src="image2.gif" alt="Just Married" class="intro-img" />
-    <div class="intro-vignette"></div>
-  </div>
-
-  <div id="main" class="scene hidden">
-
-    <div class="main-bg-wrap">
-      <img src="https://drive.google.com/thumbnail?id=1ZMv4GWXAnfpcXN3cOg8jzhfsidX9ctlP&sz=w1000" alt="Celestial Background" class="main-bg-gif" />
+        <button id="start-btn">اضغط للدخول</button>
     </div>
 
-    <div class="main-overlay-gradient"></div>
-    <div class="main-overlay-vignette"></div>
+    <!-- المحتوى الرئيسي للموقع -->
+    <div id="main-container">
 
-    <canvas id="particleCanvas"></canvas>
+        <!-- الصفحة الأولى (الصورة الأولى) -->
+        <section class="page-section" id="page1" style="background-image: url('image1.gif');">
+            <div class="glass-card">
+                <div class="text-content">
+                    <p class="poetry">اقبلت حبيبه ابيها وقره عين ونبض امها</p>
+                    <p>اللهم كما انعمت فزد وكما زدت فبارك وكما باركت فتمم</p>
+                </div>
+            </div>
+            <div class="scroll-down">⧩</div>
+        </section>
 
-    <div class="invitation-wrap">
+        <!-- الصفحة الثانية (الصورة الثانية) -->
+        <section class="page-section" id="page2" style="background-image: url('image2.gif');">
+            <div class="glass-card">
+                <div class="text-content">
+                    <p class="poetry">إنَّ البُيوتَ إذا البناتُ نَزَلْنَها<br>مثلَ السماءِ تَزَيَّنَت بنجومِها</p>
+                    <p>تسعه اشهر ونحن في انتظارك<br>الحمدُ للهِ الذي جعلَ من زينةِ الحياةِ نصيبًا</p>
+                    <p style="font-weight: bold; color: #d81b60; margin-top: 10px;">قره أعيننا بفرحتنا الاولي</p>
+                </div>
+            </div>
+            <div class="scroll-down">⧩</div>
+        </section>
 
-      <div class="deco-rule anim-item" data-delay="0">
-        <span class="rule-line"></span>
-        <span class="rule-diamond">✦</span>
-        <span class="rule-line"></span>
-      </div>
+        <!-- الصفحة الثالثة (الصورة الثالثة) -->
+        <section class="page-section" id="page3" style="background-image: url('image3.gif');">
+            <div class="glass-card">
+                <div class="text-content">
+                    <p>مرحبا يافرحه العمر والدار واول مواليد السعاده</p>
+                    <p>رزقنا بفضل من الله بصغيرتنا</p>
+                    <span class="highlight-name">لي لي بنت ايمن</span>
+                    <p>اللهم انبتها نباتا حسنا واجعلها قره عين لنا وبارك لنا فيها</p>
+                </div>
+            </div>
+        </section>
 
-      <p class="together anim-item" data-delay="1">
-        Together with their families
-      </p>
+    </div>
 
-      <h1 class="name-script anim-item" data-delay="2">Tahany</h1>
+    <!-- كود الجافاسكربت للتحكم بالتحميل والصوت -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // قائمة الصور التي نود التأكد من تحميلها بالكامل لمنع الـ Glitches
+            const imagesToPreload = ['image1.gif', 'image2.gif', 'image3.gif', 'logo.png'];
+            let loadedImagesCount = 0;
 
-      <div class="ampersand-wrap anim-item" data-delay="3">
-        <span class="amp-line"></span>
-        <span class="amp-char">&amp;</span>
-        <span class="amp-line"></span>
-      </div>
+            const checkAllImagesLoaded = () => {
+                loadedImagesCount++;
+                // عندما يتم تحميل جميع الصور
+                if (loadedImagesCount === imagesToPreload.length) {
+                    // إخفاء مؤشر التحميل وإظهار زر البدء
+                    document.getElementById('loading-indicator').style.display = 'none';
+                    document.getElementById('start-btn').style.display = 'block';
+                }
+            };
 
-      <h1 class="name-script name-script--caps anim-item" data-delay="4">
-        Ahmed
-      </h1>
+            // تحميل الصور برمجياً في الذاكرة أولاً
+            imagesToPreload.forEach(src => {
+                const img = new Image();
+                img.onload = checkAllImagesLoaded;
+                img.onerror = checkAllImagesLoaded; // في حال عدم العثور على صورة للاستمرار في التشغيل
+                img.src = src;
+            });
 
-      <div class="deco-rule deco-rule--sm anim-item" data-delay="5">
-        <span class="rule-line"></span>
-        <span class="rule-diamond">✦</span>
-        <span class="rule-line"></span>
-      </div>
+            // التعامل مع زر الدخول وتشغيل الموسيقى
+            const startBtn = document.getElementById('start-btn');
+            const loaderScreen = document.getElementById('loader-screen');
+            const mainContainer = document.getElementById('main-container');
+            const bgAudio = document.getElementById('bg-audio');
 
-      <p class="invite-line anim-item" data-delay="6">
-        invite you to celebrate their wedding
-      </p>
+            startBtn.addEventListener('click', () => {
+                // تشغيل الموسيقى
+                bgAudio.play().catch(error => {
+                    console.log("لم يتمكن المتصفح من تشغيل الصوت تلقائياً:", error);
+                });
 
-      <div class="bottom-ornament anim-item" data-delay="7">✦ ✦ ✦</div>
-
-    </div></div><audio id="bgMusic" src="music1.mp3" loop preload="auto"></audio>
-
-  <script src="script.js"></script>
+                // تأثير إخفاء شاشة التحميل
+                loaderScreen.style.opacity = '0';
+                
+                // إظهار المحتوى الرئيسي بعد انتهاء تأثير التلاشي
+                setTimeout(() => {
+                    loaderScreen.style.display = 'none';
+                    mainContainer.style.display = 'block';
+                    // إعادة تعيين موضع التمرير لأعلى الصفحة
+                    mainContainer.scrollTo(0, 0); 
+                }, 800); // 800 ميلي ثانية تطابق سرعة الـ transition في الـ CSS
+            });
+        });
+    </script>
 </body>
 </html>
