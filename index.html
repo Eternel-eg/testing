@@ -134,8 +134,8 @@
             margin: 0 auto;
             
             background-image: url('background.png');
-            background-size: 100% auto;
-            background-repeat: repeat-y;
+            background-size: 100% 100%; /* Stretches the tall image to perfectly fit the content */
+            background-repeat: no-repeat; /* Prevents repeating since you made it tall enough */
             background-position: top center;
             
             border-radius: 8px;
@@ -158,7 +158,7 @@
         /* 1. TOP LOGO (logo2.png) */
         .main-logo {
             width: 100%; /* Forces the logo to obey the max-width exactly */
-            max-width: 400px; /* <--- EDIT THIS TO RESIZE THE LOGO */
+            max-width: 200px; /* <--- EDIT THIS TO RESIZE THE LOGO */
             margin-top: 60px;     
             margin-bottom: 20px;  
             mix-blend-mode: normal; 
@@ -168,7 +168,7 @@
         /* 2. MIDDLE FOUNTAIN GIF (gif1.gif) */
         .fountain-gif {
             width: 100%; /* Forces the gif to obey the max-width exactly */
-            max-width: 620px; /* <--- EDIT THIS TO RESIZE THE FOUNTAIN GIF */
+            max-width: 320px; /* <--- EDIT THIS TO RESIZE THE FOUNTAIN GIF */
             margin-top: 20px;     
             margin-bottom: 10px;  
         }
