@@ -167,35 +167,16 @@
 
         /* 2. MIDDLE FOUNTAIN GIF (gif1.gif) */
         .fountain-gif {
-            width: 100%; /* Forces the gif to obey the max-width exactly */
-            max-width: 320px; /* <--- EDIT THIS TO RESIZE THE FOUNTAIN GIF */
+            width: 100%; /* <--- SET TO 100% */
             margin-top: 20px;     
             margin-bottom: 10px;  
         }
 
-        /* 3. BOTTOM CRANES GIF (gif2.gif) - Now acts as a background! */
-        .bottom-sections-wrapper {
-            position: relative;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 20px;
-            padding-bottom: 60px;
-            overflow: hidden; /* Ensures the gif doesn't break out of the wrapper */
-        }
-
-        .cranes-bg {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%; /* Forces the gif to obey the max-width exactly */
-            max-width: 450px; /* <--- EDIT THIS TO RESIZE THE CRANES BACKGROUND GIF */
-            z-index: 0; /* Places it under the text */
-            mix-blend-mode: multiply;
-            opacity: 0.65; /* Slightly transparent so text is readable */
-            pointer-events: none;
+        /* 3. BOTTOM CRANES GIF (gif2.gif) */
+        .cranes-gif {
+            width: 100%; /* <--- SET TO 100% */
+            margin-top: 20px;     
+            margin-bottom: 50px;  
         }
 
 
@@ -213,7 +194,7 @@
 
         section {
             position: relative;
-            z-index: 2; /* Sits above cranes bg */
+            z-index: 2; 
             width: 100%;
             padding: 30px 20px; 
             display: flex;
@@ -335,7 +316,7 @@
             color: var(--deep-sage);
             margin-bottom: 30px;
             font-style: italic;
-            text-shadow: 1px 1px 5px rgba(255,255,255,0.6); /* helps visibility over background */
+            text-shadow: 1px 1px 5px rgba(255,255,255,0.6); 
         }
 
         /* --- COUNTDOWN --- */
@@ -355,8 +336,8 @@
 
         .time-box span.number {
             font-family: var(--font-serif);
-            font-size: 3.5rem; /* Slightly larger */
-            color: var(--sage-green); /* Updated to Sage Green */
+            font-size: 3.5rem; 
+            color: var(--sage-green); 
             line-height: 1;
             margin-bottom: 5px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
@@ -366,8 +347,8 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: black; /* Updated to pure black */
-            font-weight: 600; /* Bolded slightly for better legibility */
+            color: black; 
+            font-weight: 600; 
         }
 
         /* --- RSVP SECTION --- */
@@ -392,7 +373,7 @@
         .form-group label {
             font-size: 0.85rem;
             letter-spacing: 1px;
-            color: black; /* Updated for readability over transparent BG */
+            color: black; 
             font-weight: 600;
             margin-left: 5px;
             text-transform: uppercase;
@@ -401,7 +382,7 @@
         .elegant-input {
             width: 100%;
             padding: 12px 15px;
-            background: rgba(255, 255, 255, 0.85); /* Slightly more opaque for readability over gif */
+            background: rgba(255, 255, 255, 0.85); 
             border: 1px solid rgba(168, 181, 162, 0.6);
             border-radius: 8px;
             font-family: var(--font-sans);
@@ -499,78 +480,73 @@
                     </a>
                 </section>
 
-                <!-- WRAPPER FOR COUNTDOWN & RSVP (With GIF 2 Behind them) -->
-                <div class="bottom-sections-wrapper">
-                    
-                    <!-- 4th Layer: gif2.gif acts as a background image for this section -->
-                    <img src="gif2.gif" alt="Cranes Art" class="cranes-bg">
-
-                    <!-- COUNTDOWN SECTION -->
-                    <section class="reveal">
-                        <div class="glass-panel">
-                            <h2>The Countdown</h2>
-                            <div class="timer-container" id="countdown">
-                                <div class="time-box">
-                                    <span class="number" id="days">00</span>
-                                    <span class="label">Days</span>
-                                </div>
-                                <div class="time-box">
-                                    <span class="number" id="hours">00</span>
-                                    <span class="label">Hours</span>
-                                </div>
-                                <div class="time-box">
-                                    <span class="number" id="minutes">00</span>
-                                    <span class="label">Minutes</span>
-                                </div>
-                                <div class="time-box">
-                                    <span class="number" id="seconds">00</span>
-                                    <span class="label">Seconds</span>
-                                </div>
+                <!-- COUNTDOWN SECTION -->
+                <section class="reveal">
+                    <div class="glass-panel">
+                        <h2>The Countdown</h2>
+                        <div class="timer-container" id="countdown">
+                            <div class="time-box">
+                                <span class="number" id="days">00</span>
+                                <span class="label">Days</span>
+                            </div>
+                            <div class="time-box">
+                                <span class="number" id="hours">00</span>
+                                <span class="label">Hours</span>
+                            </div>
+                            <div class="time-box">
+                                <span class="number" id="minutes">00</span>
+                                <span class="label">Minutes</span>
+                            </div>
+                            <div class="time-box">
+                                <span class="number" id="seconds">00</span>
+                                <span class="label">Seconds</span>
                             </div>
                         </div>
-                    </section>
+                    </div>
+                </section>
 
-                    <!-- RSVP SECTION -->
-                    <section class="reveal">
-                        <div class="glass-panel">
-                            <h2>RSVP</h2>
-                            <p class="serif" style="margin-bottom: 20px; color: black; font-weight: 500;">Kindly reply to confirm your attendance.</p>
+                <!-- RSVP SECTION -->
+                <section class="reveal">
+                    <div class="glass-panel">
+                        <h2>RSVP</h2>
+                        <p class="serif" style="margin-bottom: 20px; color: black; font-weight: 500;">Kindly reply to confirm your attendance.</p>
+                        
+                        <form class="rsvp-form" onsubmit="event.preventDefault(); alert('RSVP sent successfully! (This is a visual demo)');">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" class="elegant-input" placeholder="Enter your full name" required>
+                            </div>
                             
-                            <form class="rsvp-form" onsubmit="event.preventDefault(); alert('RSVP sent successfully! (This is a visual demo)');">
-                                <div class="form-group">
-                                    <label for="name">Full Name</label>
-                                    <input type="text" id="name" class="elegant-input" placeholder="Enter your full name" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="guests">Number of Guests</label>
-                                    <select id="guests" class="elegant-input">
-                                        <option value="1">1 Person</option>
-                                        <option value="2">2 Persons</option>
-                                        <option value="3">3 Persons</option>
-                                        <option value="4">4 Persons</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="attendance">Attendance</label>
-                                    <select id="attendance" class="elegant-input">
-                                        <option value="joyfully_accept">Joyfully Accept</option>
-                                        <option value="regretfully_decline">Regretfully Decline</option>
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <label for="guests">Number of Guests</label>
+                                <select id="guests" class="elegant-input">
+                                    <option value="1">1 Person</option>
+                                    <option value="2">2 Persons</option>
+                                    <option value="3">3 Persons</option>
+                                    <option value="4">4 Persons</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="attendance">Attendance</label>
+                                <select id="attendance" class="elegant-input">
+                                    <option value="joyfully_accept">Joyfully Accept</option>
+                                    <option value="regretfully_decline">Regretfully Decline</option>
+                                </select>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="message">Leave a Message (Optional)</label>
-                                    <textarea id="message" class="elegant-input" placeholder="Your warm wishes..."></textarea>
-                                </div>
+                            <div class="form-group">
+                                <label for="message">Leave a Message (Optional)</label>
+                                <textarea id="message" class="elegant-input" placeholder="Your warm wishes..."></textarea>
+                            </div>
 
-                                <button type="submit" class="btn-elegant btn-submit">Send RSVP</button>
-                            </form>
-                        </div>
-                    </section>
+                            <button type="submit" class="btn-elegant btn-submit">Send RSVP</button>
+                        </form>
+                    </div>
+                </section>
 
-                </div> <!-- End bottom-sections-wrapper -->
+                <!-- 4th Layer: gif2.gif placed right under the RSVP section -->
+                <img src="gif2.gif" alt="Cranes Art" class="inline-image cranes-gif reveal">
 
             </div>
         </div>
