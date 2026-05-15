@@ -1,367 +1,685 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مرحباً بصغيرتنا لي لي</title>
+    <title>Marwan & Haya | Wedding Invitation</title>
     
-    <!-- استدعاء خطوط عربية أنيقة من جوجل -->
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
-    
+    <!-- Google Fonts for Elegant Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <style>
-        /* الإعدادات الأساسية */
+        /* ==========================================================================
+           COLOR PALETTE & GLOBAL VARIABLES
+           ========================================================================== */
+        :root {
+            --cream: #F7F2EA;
+            --warm-ivory: #EFE7DC;
+            --sage-green: #A8B5A2;
+            --deep-sage: #7D8D77;
+            --soft-gold: #C7B38A;
+            --text-dark: #3a4536;
+            
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Montserrat', sans-serif;
+        }
+
+        /* ==========================================================================
+           RESET & BASE STYLES
+           ========================================================================== */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
-        body, html {
-            font-family: 'Cairo', sans-serif;
-            background-color: #fff0f5; /* لون وردي فاتح جداً */
-            color: #333;
-            overflow: hidden; /* لمنع التمرير العشوائي */
+        body {
+            font-family: var(--font-sans);
+            color: var(--text-dark);
+            background-color: var(--warm-ivory); 
+            overflow-x: hidden;
+            overflow-y: hidden;
         }
 
-        /* شاشة التحميل */
-        #loader-screen {
+        body.loaded {
+            overflow-y: auto;
+        }
+
+        h1, h2, h3, h4, .serif {
+            font-family: var(--font-serif);
+            font-weight: 400;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ==========================================================================
+           PAGE 1: LOADING SCREEN & ANIMATIONS
+           ========================================================================== */
+        #preloader {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #ffe6f0 0%, #ffcce0 100%);
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--cream);
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.8s ease-out;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s;
         }
 
-        #loader-logo {
-            max-width: 450px;
-            margin-bottom: 20px;
-            animation: pulse 2s infinite ease-in-out;
+        .loader-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(0.95); opacity: 0.8; }
-            50% { transform: scale(1.05); opacity: 1; }
-            100% { transform: scale(0.95); opacity: 0.8; }
-        }
-
-        .loader-text {
-            color: #d81b60;
-            font-size: 1.2rem;
-            font-weight: 600;
+        .loader-logo {
+            width: 250px;
+            height: auto;
+            animation: pulseFade 2.5s infinite alternate ease-in-out;
             margin-bottom: 20px;
         }
 
+        /* Spinner Animation */
         .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(216, 27, 96, 0.2);
-            border-top: 4px solid #d81b60;
+            width: 45px;
+            height: 45px;
+            border: 3px solid rgba(168, 181, 162, 0.3);
+            border-top-color: var(--sage-green);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            to { transform: rotate(360deg); }
         }
 
-        #start-btn {
-            display: none;
-            background-color: #d81b60;
-            color: white;
-            border: none;
-            padding: 12px 35px;
-            font-size: 1.3rem;
-            font-family: 'Cairo', sans-serif;
-            font-weight: bold;
-            border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(216, 27, 96, 0.4);
-            transition: all 0.3s ease;
-            animation: fadeIn 0.5s ease-in;
+        @keyframes pulseFade {
+            0% { opacity: 0.6; transform: scale(0.96); filter: blur(1px); }
+            100% { opacity: 1; transform: scale(1.02); filter: blur(0px); }
         }
 
-        #start-btn:hover {
-            background-color: #ad144b;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(216, 27, 96, 0.6);
+        body.loaded #preloader {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* حاوية الصفحات الرئيسية */
-        #main-container {
-            display: none;
-            height: 100vh;
-            width: 100vw;
-            overflow-y: scroll;
-            scroll-snap-type: y mandatory; /* للتنقل السلس بين الشاشات */
-            scroll-behavior: smooth;
-        }
-
-        /* إعدادات كل صفحة */
-        .page-section {
-            height: 100vh;
+        /* ==========================================================================
+           PAGE 2: MAIN CARD CONTAINER
+           ========================================================================== */
+        
+        .page-wrapper {
             width: 100%;
-            scroll-snap-align: start;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: flex-start;
+            padding: 40px 20px; 
+        }
+
+        /* 1st Layer: The Background Paper */
+        #invitation-container {
+            width: 100%;
+            max-width: 540px; 
             position: relative;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            margin: 0 auto;
+            
+            background-image: url('background.png');
+            background-size: 100% auto;
+            background-repeat: repeat-y;
+            background-position: top center;
+            
+            border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15); 
+            overflow: hidden; 
         }
 
-        /* البطاقة الزجاجية الشفافة للنصوص - أصبحت شفافة بالكامل الآن */
-        .glass-card {
-            background: transparent;
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
-            padding: 0 2rem;
-            text-align: center;
-            width: 90%;
-            max-width: 600px;
-            box-shadow: none;
-            border: none;
-            position: relative;
-            z-index: 10; /* لإبقاء النص فوق العلامة المائية */
-        }
-
-        /* تنسيق النصوص */
-        .text-content {
-            color: #6a0d35; /* لون عنابي داكن للتباين الممتاز */
-            font-size: 0.7rem;
-            line-height: 1.9;
-            font-weight: 600;
-        }
-
-        .poetry {
-            font-family: 'Amiri', serif;
-            font-size: 0.9rem;
-            color: #c2185b;
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-
-        .highlight-name {
+        /* ==========================================================================
+           🛑 IMAGE & GIF CONTROL PANEL 🛑
+           ========================================================================== */
+        
+        .inline-image {
             display: block;
-            font-size: 1.1rem;
-            color: #d81b60;
-            font-weight: 800;
-            margin: 15px 0;
+            margin-left: auto;
+            margin-right: auto;
+            height: auto;
+            mix-blend-mode: multiply; 
         }
 
-        /* إضافة تحديد (إطار أبيض) قوي للنصوص لحمايتها وضمان وضوحها بعد إزالة الخلفية الشفافة */
-        .text-content p, .poetry, .highlight-name {
-            text-shadow: 2px 2px 4px rgba(255,255,255,0.9), -2px -2px 4px rgba(255,255,255,0.9), 2px -2px 4px rgba(255,255,255,0.9), -2px 2px 4px rgba(255,255,255,0.9), 0px 4px 10px rgba(0,0,0,0.5);
+        /* 1. TOP LOGO (logo2.png) */
+        .main-logo {
+            width: 100%; /* Forces the logo to obey the max-width exactly */
+            max-width: 400px; /* <--- EDIT THIS TO RESIZE THE LOGO */
+            margin-top: 60px;     
+            margin-bottom: 20px;  
+            mix-blend-mode: normal; 
+            filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.05));
         }
 
-        /* حركات النصوص (Animations) */
-        .animate-text {
+        /* 2. MIDDLE FOUNTAIN GIF (gif1.gif) */
+        .fountain-gif {
+            width: 100%; /* Forces the gif to obey the max-width exactly */
+            max-width: 620px; /* <--- EDIT THIS TO RESIZE THE FOUNTAIN GIF */
+            margin-top: 20px;     
+            margin-bottom: 10px;  
+        }
+
+        /* 3. BOTTOM CRANES GIF (gif2.gif) - Now acts as a background! */
+        .bottom-sections-wrapper {
+            position: relative;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            padding-bottom: 60px;
+            overflow: hidden; /* Ensures the gif doesn't break out of the wrapper */
+        }
+
+        .cranes-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%; /* Forces the gif to obey the max-width exactly */
+            max-width: 450px; /* <--- EDIT THIS TO RESIZE THE CRANES BACKGROUND GIF */
+            z-index: 0; /* Places it under the text */
+            mix-blend-mode: multiply;
+            opacity: 0.65; /* Slightly transparent so text is readable */
+            pointer-events: none;
+        }
+
+
+        /* ==========================================================================
+           MAIN CONTENT LAYOUT & TYPOGRAPHY
+           ========================================================================== */
+        .content-wrapper {
+            position: relative;
+            z-index: 10; 
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        section {
+            position: relative;
+            z-index: 2; /* Sits above cranes bg */
+            width: 100%;
+            padding: 30px 20px; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        /* --- ADVANCED TEXT ANIMATIONS --- */
+        .reveal {
             opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 1s ease-out, transform 1s ease-out;
+            transform: translateY(40px) scale(0.96);
+            filter: blur(6px);
+            transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        filter 1.2s ease-out;
         }
         
-        .animate-text.visible {
+        .reveal.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
+            filter: blur(0);
         }
 
-        /* تأخير بسيط لكل سطر لإعطاء تأثير متتابع */
+        /* Delay helper for staggered hero animations */
         .delay-1 { transition-delay: 0.2s; }
-        .delay-2 { transition-delay: 0.5s; }
-        .delay-3 { transition-delay: 0.8s; }
-        .delay-4 { transition-delay: 1.1s; }
+        .delay-2 { transition-delay: 0.4s; }
+        .delay-3 { transition-delay: 0.6s; }
 
-        /* أيقونة التمرير لأسفل */
-        .scroll-down {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 2rem;
-            animation: bounce 2s infinite;
-            text-shadow: 0px 2px 5px rgba(0,0,0,0.4);
-            pointer-events: none;
-            z-index: 10;
+        .intro-text {
+            font-size: 1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--deep-sage);
+            margin-bottom: 15px;
         }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
-            40% { transform: translate(-50%, -15px); }
-            60% { transform: translate(-50%, -7px); }
+        /* Floating Name Effect */
+        .names {
+            font-size: 4.5rem;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            line-height: 1.1;
+            font-style: italic;
+            animation: floatText 4s ease-in-out infinite alternate;
         }
 
-        /* إخفاء شريط التمرير لجمالية التصميم */
-        ::-webkit-scrollbar {
-            display: none;
+        @keyframes floatText {
+            0% { transform: translateY(0px); text-shadow: 0px 5px 15px rgba(168, 181, 162, 0.1); }
+            100% { transform: translateY(-8px); text-shadow: 0px 15px 25px rgba(168, 181, 162, 0.4); }
         }
 
-        /* إعدادات العلامة المائية كنمط متكرر (Pattern) يغطي الشاشة */
-        .watermark-pattern {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .request-text {
+            font-size: 1.2rem;
+            color: var(--deep-sage);
+            margin-bottom: 20px;
+            max-width: 90%;
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        .details {
+            margin-bottom: 30px;
+            margin-top: 20px;
+        }
+
+        .details p {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            color: var(--text-dark);
+        }
+
+        .details span {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            color: var(--deep-sage);
+            font-style: italic;
+        }
+
+        /* Glassmorphism Button */
+        .btn-elegant {
+            display: inline-block;
+            padding: 12px 30px;
+            background: rgba(168, 181, 162, 0.85);
+            color: #fff;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            box-shadow: 0 10px 30px rgba(125, 141, 119, 0.2);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .btn-elegant:hover {
+            background: rgba(125, 141, 119, 1);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(125, 141, 119, 0.3);
+        }
+
+        /* --- UI PANELS (COUNTDOWN & RSVP) --- */
+        .glass-panel {
+            /* Fully transparent as requested */
+            background: transparent; 
+            border: none;
+            box-shadow: none;
+            padding: 20px 10px;
             width: 100%;
-            height: 100%;
-            background-image: url('logo (1).png');
-            background-repeat: repeat;
-            background-size: 150px; /* حجم الشعار في النمط */
-            opacity: 0.15; /* شفافية خفيفة حتى لا تزعج النظر للـ PNG الشفاف */
-            z-index: 1; /* خلف النصوص */
-            pointer-events: none; /* لمنع التداخل مع نقرات المستخدم */
+        }
+
+        .glass-panel h2 {
+            font-size: 2.5rem;
+            color: var(--deep-sage);
+            margin-bottom: 30px;
+            font-style: italic;
+            text-shadow: 1px 1px 5px rgba(255,255,255,0.6); /* helps visibility over background */
+        }
+
+        /* --- COUNTDOWN --- */
+        .timer-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .time-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 60px;
+        }
+
+        .time-box span.number {
+            font-family: var(--font-serif);
+            font-size: 3.5rem; /* Slightly larger */
+            color: var(--sage-green); /* Updated to Sage Green */
+            line-height: 1;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .time-box span.label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: black; /* Updated to pure black */
+            font-weight: 600; /* Bolded slightly for better legibility */
+        }
+
+        /* --- RSVP SECTION --- */
+        .rsvp-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 10px;
+            text-align: left;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: black; /* Updated for readability over transparent BG */
+            font-weight: 600;
+            margin-left: 5px;
+            text-transform: uppercase;
+        }
+
+        .elegant-input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.85); /* Slightly more opaque for readability over gif */
+            border: 1px solid rgba(168, 181, 162, 0.6);
+            border-radius: 8px;
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .elegant-input:focus {
+            background: rgba(255, 255, 255, 1);
+            border-color: var(--deep-sage);
+            box-shadow: 0 0 15px rgba(168, 181, 162, 0.4);
+            transform: translateY(-2px);
+        }
+
+        select.elegant-input {
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+
+        textarea.elegant-input {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn-submit {
+            margin-top: 15px;
+            width: 100%;
+            text-align: center;
+            border-radius: 8px; 
+            font-weight: 500;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .page-wrapper {
+                padding: 0; 
+            }
+            #invitation-container {
+                border-radius: 0;
+                box-shadow: none;
+            }
+            .names { font-size: 3.5rem; }
+            .timer-container { gap: 15px; }
+            .time-box span.number { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ملف الموسيقى (يتم تشغيله برمجياً بعد ضغط زر البدء) -->
-    <audio id="bg-audio" loop>
-        <source src="music1.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- العلامة المائية كنمط متكرر -->
-    <div class="watermark-pattern"></div>
-
-    <!-- شاشة التحميل -->
-    <div id="loader-screen">
-        <!-- شعار التحميل -->
-        <img src="logo.png" id="loader-logo" alt="Logo">
-        
-        <div id="loading-indicator">
-            <div class="loader-text">جاري تحضير المفاجأة...</div>
-            <div style="display: flex; justify-content: center;"><div class="spinner"></div></div>
+    <!-- PAGE 1: FULLSCREEN LOADER -->
+    <div id="preloader">
+        <div class="loader-content">
+            <img src="logo1.gif" alt="Marwan & Haya Initials" class="loader-logo">
+            <div class="spinner"></div>
+            <!-- This button is hidden until assets finish loading -->
+            <button id="enter-btn" class="btn-elegant" style="display: none; margin-top: 30px;">Join our celebration</button>
         </div>
-
-        <button id="start-btn">اضغط للدخول</button>
     </div>
 
-    <!-- المحتوى الرئيسي للموقع -->
-    <div id="main-container">
+    <!-- MAIN PAGE WRAPPER -->
+    <div class="page-wrapper">
+        
+        <!-- INVITATION CARD -->
+        <div id="invitation-container">
 
-        <!-- الصفحة الأولى (الصورة الأولى) - تم رفع النص جداً بتقليل الـ padding -->
-        <section class="page-section" id="page1" style="background-image: url('image1.gif'); padding-top: 5vh;">
-            <div class="glass-card">
-                <div class="text-content">
-                    <p class="poetry animate-text delay-1">اقبلت حبيبه ابيها وقره عين ونبض امها</p>
-                    <p class="animate-text delay-2">اللهم كما انعمت فزد وكما زدت فبارك وكما باركت فتمم</p>
-                </div>
-            </div>
-            <div class="scroll-down">⧩</div>
-        </section>
-
-        <!-- الصفحة الثانية (الصورة الثانية) - تم الرفع بنسبة إضافية -->
-        <section class="page-section" id="page2" style="background-image: url('image2.gif'); padding-top: 15vh;">
-            <div class="glass-card">
-                <div class="text-content">
-                    <p class="poetry animate-text delay-1">إنَّ البُيوتَ إذا البناتُ نَزَلْنَها<br>مثلَ السماءِ تَزَيَّنَت بنجومِها</p>
-                    <p class="animate-text delay-2">تسعه اشهر ونحن في انتظارك<br>الحمدُ للهِ الذي جعلَ من زينةِ الحياةِ نصيبًا</p>
-                    <p class="animate-text delay-3" style="font-weight: bold; color: #d81b60; margin-top: 10px;">قره أعيننا بفرحتنا الاولي</p>
-                </div>
-            </div>
-            <div class="scroll-down">⧩</div>
-        </section>
-
-        <!-- الصفحة الثالثة (الصورة الثالثة) - تم الرفع ليتطابق مع طلبك -->
-        <section class="page-section" id="page3" style="background-image: url('image3.gif'); padding-top: 5vh;">
-            <div class="glass-card">
-                <div class="text-content">
-                    <p class="animate-text delay-1">مرحبا يافرحه العمر والدار واول مواليد السعاده</p>
-                    <p class="animate-text delay-2">رزقنا بفضل من الله بصغيرتنا</p>
-                    <span class="highlight-name animate-text delay-3">لي لي بنت ايمن</span>
-                    <p class="animate-text delay-4">اللهم انبتها نباتا حسنا واجعلها قره عين لنا وبارك لنا فيها</p>
-                </div>
-            </div>
-        </section>
-
-    </div>
-
-    <!-- كود الجافاسكربت للتحكم بالتحميل والصوت -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // إضافة صورة اللوجو الجديد لقائمة التحميل المسبق لمنع الـ Glitches
-            const imagesToPreload = ['image1.gif', 'image2.gif', 'image3.gif', 'logo.png', 'logo (1).png'];
-            let loadedImagesCount = 0;
-
-            const checkAllImagesLoaded = () => {
-                loadedImagesCount++;
-                // عندما يتم تحميل جميع الصور
-                if (loadedImagesCount === imagesToPreload.length) {
-                    // إخفاء مؤشر التحميل وإظهار زر البدء
-                    document.getElementById('loading-indicator').style.display = 'none';
-                    document.getElementById('start-btn').style.display = 'block';
-                }
-            };
-
-            // تحميل الصور برمجياً في الذاكرة أولاً
-            imagesToPreload.forEach(src => {
-                const img = new Image();
-                img.onload = checkAllImagesLoaded;
-                img.onerror = checkAllImagesLoaded; // في حال عدم العثور على صورة للاستمرار في التشغيل
-                img.src = src;
-            });
-
-            // التعامل مع زر الدخول وتشغيل الموسيقى
-            const startBtn = document.getElementById('start-btn');
-            const loaderScreen = document.getElementById('loader-screen');
-            const mainContainer = document.getElementById('main-container');
-            const bgAudio = document.getElementById('bg-audio');
-
-            startBtn.addEventListener('click', () => {
-                // تشغيل الموسيقى
-                bgAudio.play().catch(error => {
-                    console.log("لم يتمكن المتصفح من تشغيل الصوت تلقائياً:", error);
-                });
-
-                // تأثير إخفاء شاشة التحميل
-                loaderScreen.style.opacity = '0';
+            <div class="content-wrapper">
                 
-                // إظهار المحتوى الرئيسي بعد انتهاء تأثير التلاشي
-                setTimeout(() => {
-                    loaderScreen.style.display = 'none';
-                    mainContainer.style.display = 'block';
-                    // إعادة تعيين موضع التمرير لأعلى الصفحة
-                    mainContainer.scrollTo(0, 0); 
-                }, 800); // 800 ميلي ثانية تطابق سرعة الـ transition في الـ CSS
-            });
+                <!-- 2nd Layer: logo2.png at the top -->
+                <img src="logo2.png" alt="MH Logo" class="inline-image main-logo reveal active">
+                
+                <section class="hero-text">
+                    <p class="intro-text reveal delay-1">Together with their families</p>
+                    <h1 class="names reveal delay-2">Marwan & Haya</h1>
+                    <p class="request-text serif reveal delay-3">
+                        Request the pleasure of your presence<br>at their marriage
+                    </p>
+                </section>
 
-            // مراقب التمرير لتفعيل الأنيميشن عند ظهور الصفحة
-            const observerOptions = {
-                root: mainContainer,
-                threshold: 0.3 // تفعيل الحركة عندما يظهر 30% من الصفحة
-            };
+                <!-- 3rd Layer: gif1.gif placed right under logo and introductory text -->
+                <img src="gif1.gif" alt="Decorative Fountain" class="inline-image fountain-gif reveal">
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const animatedElements = entry.target.querySelectorAll('.animate-text');
-                        animatedElements.forEach(el => el.classList.add('visible'));
-                    } else {
-                        // إزالة الكلاس لإعادة الحركة عند الرجوع للصفحة
-                        const animatedElements = entry.target.querySelectorAll('.animate-text');
-                        animatedElements.forEach(el => el.classList.remove('visible'));
-                    }
-                });
-            }, observerOptions);
+                <section class="reveal">
+                    <div class="details">
+                        <p>DATE<br><span>15th of Aug, 2026</span></p>
+                        <br>
+                        <p>LOCATION<br><span>AZHA New Cairo Venue</span></p>
+                    </div>
 
-            // مراقبة كل الصفحات
-            document.querySelectorAll('.page-section').forEach(section => {
-                observer.observe(section);
-            });
+                    <a href="https://www.google.com/maps?q=AZHA+New+Cairo+Venue,+Suez+Rd,+El+Shorouk,+Cairo+Governorate+4912052&ftid=0x14581d543b64ee61:0x360ad4c38dc95575&entry=gps&shh=CAE&lucs=,94297699,94284493,94231188,94280568,47071704,94218641,94282134,94286869&g_ep=CAISEjI2LjE4LjAuOTA2NTA0NDMzMBgAINeCAypILDk0Mjk3Njk5LDk0Mjg0NDkzLDk0MjMxMTg4LDk0MjgwNTY4LDQ3MDcxNzA0LDk0MjE4NjQxLDk0MjgyMTM0LDk0Mjg2ODY5QgJFRw%3D%3D&skid=2d58b978-c7a2-4467-a120-017a0376226a&g_st=ic" target="_blank" class="btn-elegant">
+                        View Location
+                    </a>
+                </section>
+
+                <!-- WRAPPER FOR COUNTDOWN & RSVP (With GIF 2 Behind them) -->
+                <div class="bottom-sections-wrapper">
+                    
+                    <!-- 4th Layer: gif2.gif acts as a background image for this section -->
+                    <img src="gif2.gif" alt="Cranes Art" class="cranes-bg">
+
+                    <!-- COUNTDOWN SECTION -->
+                    <section class="reveal">
+                        <div class="glass-panel">
+                            <h2>The Countdown</h2>
+                            <div class="timer-container" id="countdown">
+                                <div class="time-box">
+                                    <span class="number" id="days">00</span>
+                                    <span class="label">Days</span>
+                                </div>
+                                <div class="time-box">
+                                    <span class="number" id="hours">00</span>
+                                    <span class="label">Hours</span>
+                                </div>
+                                <div class="time-box">
+                                    <span class="number" id="minutes">00</span>
+                                    <span class="label">Minutes</span>
+                                </div>
+                                <div class="time-box">
+                                    <span class="number" id="seconds">00</span>
+                                    <span class="label">Seconds</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- RSVP SECTION -->
+                    <section class="reveal">
+                        <div class="glass-panel">
+                            <h2>RSVP</h2>
+                            <p class="serif" style="margin-bottom: 20px; color: black; font-weight: 500;">Kindly reply to confirm your attendance.</p>
+                            
+                            <form class="rsvp-form" onsubmit="event.preventDefault(); alert('RSVP sent successfully! (This is a visual demo)');">
+                                <div class="form-group">
+                                    <label for="name">Full Name</label>
+                                    <input type="text" id="name" class="elegant-input" placeholder="Enter your full name" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="guests">Number of Guests</label>
+                                    <select id="guests" class="elegant-input">
+                                        <option value="1">1 Person</option>
+                                        <option value="2">2 Persons</option>
+                                        <option value="3">3 Persons</option>
+                                        <option value="4">4 Persons</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="attendance">Attendance</label>
+                                    <select id="attendance" class="elegant-input">
+                                        <option value="joyfully_accept">Joyfully Accept</option>
+                                        <option value="regretfully_decline">Regretfully Decline</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="message">Leave a Message (Optional)</label>
+                                    <textarea id="message" class="elegant-input" placeholder="Your warm wishes..."></textarea>
+                                </div>
+
+                                <button type="submit" class="btn-elegant btn-submit">Send RSVP</button>
+                            </form>
+                        </div>
+                    </section>
+
+                </div> <!-- End bottom-sections-wrapper -->
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ==========================================================================
+           1. ASSET PRELOADER WITH "JOIN CELEBRATION" BUTTON
+           ========================================================================== */
+        const assetsToLoad = [
+            'background.jpg',
+            'logo1.gif',
+            'logo2.png',
+            'gif1.gif',
+            'gif2.gif'
+        ];
+        
+        let loadedCount = 0;
+        let isReady = false;
+
+        function showEnterButton() {
+            if (isReady) return;
+            isReady = true;
+            
+            // Hide spinner, show button with animation
+            document.querySelector('.spinner').style.display = 'none';
+            const enterBtn = document.getElementById('enter-btn');
+            enterBtn.style.display = 'inline-block';
+            
+            enterBtn.animate([
+                { opacity: 0, transform: 'translateY(15px)' },
+                { opacity: 1, transform: 'translateY(0)' }
+            ], { duration: 800, fill: 'forwards', easing: 'ease-out' });
+        }
+
+        function checkPreloadComplete() {
+            loadedCount++;
+            if (loadedCount === assetsToLoad.length) {
+                setTimeout(showEnterButton, 800); // Slight delay for smoothness
+            }
+        }
+
+        assetsToLoad.forEach(src => {
+            const img = new Image();
+            img.onload = checkPreloadComplete;
+            img.onerror = checkPreloadComplete;
+            img.src = src;
         });
+
+        // Failsafe if images take too long
+        setTimeout(showEnterButton, 6000);
+
+        // Handle Entry Click
+        document.getElementById('enter-btn').addEventListener('click', () => {
+            document.body.classList.add('loaded');
+            
+            // Stagger hero section reveal animations once entered
+            setTimeout(() => {
+                document.querySelectorAll('.hero-text .reveal').forEach(el => el.classList.add('active'));
+            }, 500); 
+        });
+
+        /* ==========================================================================
+           2. SCROLL REVEAL ANIMATIONS
+           ========================================================================== */
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15 
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, observerOptions);
+
+        // Start observing remaining reveals that aren't manually triggered
+        document.querySelectorAll('.reveal:not(.hero-text .reveal):not(.main-logo)').forEach(section => {
+            observer.observe(section);
+        });
+
+        /* ==========================================================================
+           3. COUNTDOWN TIMER
+           ========================================================================== */
+        const targetDate = new Date("August 15, 2026 00:00:00").getTime();
+
+        const timerInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? '0' + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? '0' + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? '0' + seconds : seconds;
+
+            if (distance < 0) {
+                clearInterval(timerInterval);
+                document.getElementById("countdown").innerHTML = "<h3 style='font-family: var(--font-serif); font-size: 2rem;'>The big day is here!</h3>";
+            }
+        }, 1000);
     </script>
 </body>
 </html>
